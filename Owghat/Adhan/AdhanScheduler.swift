@@ -3,7 +3,7 @@ import Foundation
 import OwghatCore
 import UserNotifications
 
-/// Schedules timers and backup local notifications for upcoming prayers and pre-Adhan reminders.
+/// Schedules timers and backup local notifications for upcoming prayers and location midnight rollovers.
 @MainActor
 final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     private enum Constants {
@@ -15,6 +15,7 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     private let audioPlayer: AdhanAudioPlayer
     private var armedTask: Task<Void, Never>?
     private var reminderTask: Task<Void, Never>?
+    private var midnightTask: Task<Void, Never>?
     private var systemObservers: [NSObjectProtocol] = []
     var onScheduleNeedsRefresh: (() -> Void)?
 
@@ -28,6 +29,7 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     deinit {
         armedTask?.cancel()
         reminderTask?.cancel()
+        midnightTask?.cancel()
     }
 
     func requestNotificationPermission() async {
@@ -36,7 +38,7 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         _ = try? await center.requestAuthorization(options: [.alert, .sound, .badge])
     }
 
-    /// Arms timers and local notifications for the next prayer event.
+    /// Arms timers and local notifications for the next prayer event and next location midnight.
     func arm(
         nextResolution: NextPrayerResolution?,
         todaySchedule: DailyPrayerTimes?,
@@ -45,8 +47,12 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     ) {
         armedTask?.cancel()
         reminderTask?.cancel()
+        midnightTask?.cancel()
         armedTask = nil
         reminderTask = nil
+        midnightTask = nil
+
+        armLocationMidnightObserver(timeZone: timeZone)
 
         guard let nextResolution else { return }
         let now = Date()
@@ -92,6 +98,24 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
 
         if settings.adhan.notificationsEnabled {
             scheduleBackupNotifications(schedule: todaySchedule, settings: settings, timeZone: timeZone)
+        }
+    }
+
+    /// Schedules a refresh just after local midnight in the active location's time zone.
+    private func armLocationMidnightObserver(timeZone: TimeZone) {
+        let now = Date()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+
+        let startOfToday = calendar.startOfDay(for: now)
+        guard let nextMidnight = calendar.date(byAdding: .day, value: 1, to: startOfToday) else {
+            return
+        }
+        let delay = max(1.0, nextMidnight.timeIntervalSince(now) + 1.0)
+        midnightTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(delay))
+            guard !Task.isCancelled, let self else { return }
+            self.onScheduleNeedsRefresh?()
         }
     }
 
