@@ -1,0 +1,28 @@
+name: Feature Request
+description: Suggest a new capability or improvement for Owghat
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share your idea for improving Owghat.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem or goal
+      description: What workflow or need does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior, UI, or configuration options you envision.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional notes on other approaches or workarounds.

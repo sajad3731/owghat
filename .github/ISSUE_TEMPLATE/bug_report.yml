@@ -1,0 +1,47 @@
+name: Bug Report
+description: Report an unexpected issue or calculation discrepancy in Owghat
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue. Please provide clear reproduction details so we can investigate.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps to reproduce the issue (including city/coordinates, calculation method, and date if related to prayer times).
+      placeholder: |
+        1. Set location to Tehran (35.6892, 51.3890)
+        2. Select Tehran calculation method
+        3. Check Fajr time on ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: macOS & App Version
+      description: e.g., macOS 15.3, Owghat 0.1.0
+      placeholder: macOS 15.3 (Apple Silicon)
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Screenshots, logs, or comparison references if applicable.
