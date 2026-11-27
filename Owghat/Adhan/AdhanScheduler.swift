@@ -3,102 +3,307 @@ import Foundation
 import OwghatCore
 import UserNotifications
 
-/// Schedules timers and backup local notifications for upcoming prayers and location midnight rollovers.
+/// Releases a `ProcessInfo` activity assertion automatically if deallocated early.
+private final class ActivityAssertionBox: @unchecked Sendable {
+    private var token: (any NSObjectProtocol)?
+
+    init(reason: String) {
+        self.token = ProcessInfo.processInfo.beginActivity(
+            options: .userInitiatedAllowingIdleSystemSleep,
+            reason: reason
+        )
+    }
+
+    func end() {
+        if let token {
+            ProcessInfo.processInfo.endActivity(token)
+            self.token = nil
+        }
+    }
+
+    deinit {
+        if let token {
+            ProcessInfo.processInfo.endActivity(token)
+        }
+    }
+}
+
+/// Executes scheduled Adhan events, App Nap assertions, and `UNUserNotificationCenter` diffs.
 @MainActor
 final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     private enum Constants {
         static let categoryID = "OWGHAT_ADHAN_ALERT"
         static let stopActionID = "OWGHAT_STOP_ADHAN"
         static let snoozeActionID = "OWGHAT_SNOOZE_ADHAN"
+        static let willPlayAudioKey = "willPlayAudio"
+        static let appNapLeadSeconds: TimeInterval = 60
     }
 
     private let audioPlayer: AdhanAudioPlayer
-    private var armedTask: Task<Void, Never>?
-    private var reminderTask: Task<Void, Never>?
+    private let planner = AdhanPlanner()
+    private var earliestEventTask: Task<Void, Never>?
+    private var appNapTask: Task<Void, Never>?
+    private var notificationSyncTask: Task<Void, Never>?
     private var midnightTask: Task<Void, Never>?
+    private var appNapAssertion: ActivityAssertionBox?
     private var systemObservers: [NSObjectProtocol] = []
+    private var scheduledNotificationIDs = Set<String>()
+
     var onScheduleNeedsRefresh: (() -> Void)?
+    var onOpenPanelOrWindow: (() -> Void)?
 
     init(audioPlayer: AdhanAudioPlayer) {
         self.audioPlayer = audioPlayer
         super.init()
-        configureNotificationCategories()
+        UNUserNotificationCenter.current().delegate = self
+        configureNotificationCategories(language: .persian)
         installSystemObservers()
     }
 
     deinit {
-        armedTask?.cancel()
-        reminderTask?.cancel()
+        earliestEventTask?.cancel()
+        appNapTask?.cancel()
+        notificationSyncTask?.cancel()
         midnightTask?.cancel()
     }
 
-    func requestNotificationPermission() async {
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self
-        _ = try? await center.requestAuthorization(options: [.alert, .sound, .badge])
+    func requestNotificationPermissionOnce() async -> UNAuthorizationStatus {
+        let current = await fetchAuthorizationStatus()
+        if current == .notDetermined {
+            _ = try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
+            return await fetchAuthorizationStatus()
+        }
+        return current
     }
 
-    /// Arms timers and local notifications for the next prayer event and next location midnight.
+    func currentNotificationAuthorizationStatus() async -> UNAuthorizationStatus {
+        await fetchAuthorizationStatus()
+    }
+
+    /// Plans upcoming events across `schedules`, arms the earliest timer, and diffs system notifications.
     func arm(
-        nextResolution: NextPrayerResolution?,
-        todaySchedule: DailyPrayerTimes?,
+        schedules: [DailyPrayerTimes],
         settings: AppSettings,
-        timeZone: TimeZone
+        timeZone: TimeZone,
+        now: Date = Date()
     ) {
-        armedTask?.cancel()
-        reminderTask?.cancel()
+        earliestEventTask?.cancel()
+        appNapTask?.cancel()
+        notificationSyncTask?.cancel()
         midnightTask?.cancel()
-        armedTask = nil
-        reminderTask = nil
+        earliestEventTask = nil
+        appNapTask = nil
+        notificationSyncTask = nil
         midnightTask = nil
+        appNapAssertion?.end()
+        appNapAssertion = nil
 
+        configureNotificationCategories(language: settings.language)
         armLocationMidnightObserver(timeZone: timeZone)
 
-        guard let nextResolution else { return }
-        let now = Date()
-        let entry = nextResolution.entry
-        let interval = entry.date.timeIntervalSince(now)
-        guard interval > 0 else { return }
+        let events = planner.plan(
+            schedules: schedules,
+            settings: settings.adhan,
+            timeZone: timeZone,
+            now: now
+        )
 
-        let choice = settings.adhan.audioPerPrayer[entry.prayer] ?? .none
-        let isMuted = settings.adhan.isMuted(on: entry.date, timeZone: timeZone)
+        if let nextEvent = events.first {
+            armEarliestEvent(nextEvent, settings: settings, timeZone: timeZone, now: now)
+        }
 
-        if !isMuted && choice != .none {
-            let doaChoice = settings.adhan.postAdhanDoaClip
-            let adhanSettings = settings.adhan
-            armedTask = Task { [weak self] in
-                try? await Task.sleep(for: .seconds(interval))
+        notificationSyncTask = Task { [weak self] in
+            await self?.applyNotificationPlan(events: events, settings: settings, timeZone: timeZone)
+        }
+    }
+
+    private func armEarliestEvent(
+        _ event: AdhanEvent,
+        settings: AppSettings,
+        timeZone: TimeZone,
+        now: Date
+    ) {
+        let delay = max(0, event.fireDate.timeIntervalSince(now))
+
+        if delay <= Constants.appNapLeadSeconds {
+            appNapAssertion = ActivityAssertionBox(reason: "Preparing scheduled Adhan event")
+        } else {
+            let leadDelay = delay - Constants.appNapLeadSeconds
+            appNapTask = Task { [weak self] in
+                try? await Task.sleep(for: .seconds(leadDelay))
                 guard !Task.isCancelled, let self else { return }
-                self.audioPlayer.play(
-                    choice: choice,
-                    postAdhanDoa: doaChoice,
-                    settings: adhanSettings
-                )
-                self.onScheduleNeedsRefresh?()
+                self.appNapAssertion = ActivityAssertionBox(reason: "Preparing scheduled Adhan event")
             }
         }
 
-        if let reminderMinutes = settings.adhan.preAdhanReminderMinutes, reminderMinutes > 0 {
-            let reminderDate = entry.date.addingTimeInterval(TimeInterval(-reminderMinutes * 60))
-            let reminderInterval = reminderDate.timeIntervalSince(now)
-            if reminderInterval > 0 {
-                let prayer = entry.prayer
-                let language = settings.language
-                reminderTask = Task { [weak self] in
-                    try? await Task.sleep(for: .seconds(reminderInterval))
-                    guard !Task.isCancelled, let self else { return }
-                    self.deliverImmediateReminderNotification(
-                        prayer: prayer,
-                        minutesBefore: reminderMinutes,
-                        language: language
+        earliestEventTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(delay))
+            guard !Task.isCancelled, let self else { return }
+            self.executeEvent(event, settings: settings, timeZone: timeZone)
+        }
+    }
+
+    private func executeEvent(_ event: AdhanEvent, settings: AppSettings, timeZone: TimeZone) {
+        let now = Date()
+        let decision = AdhanFireDecision.evaluate(
+            event: event,
+            now: now,
+            graceWindow: AdhanFireDecision.defaultGraceWindow,
+            notificationsEnabled: settings.adhan.notificationsEnabled
+        )
+
+        switch decision {
+        case .play:
+            switch event.kind {
+            case .adhan:
+                if let audioChoice = event.audio {
+                    audioPlayer.play(
+                        prayer: event.prayer,
+                        choice: audioChoice,
+                        postAdhanDoa: event.playsDoa ? settings.adhan.postAdhanDoaClip : .none,
+                        settings: settings.adhan,
+                        language: settings.language
+                    )
+                }
+            case .reminder(let minutesBefore):
+                let requestID = NotificationPlan.requestIdentifier(for: event)
+                if !scheduledNotificationIDs.contains(requestID) {
+                    deliverImmediateReminderNotification(
+                        prayer: event.prayer,
+                        minutesBefore: minutesBefore,
+                        language: settings.language,
+                        persianDigits: settings.usePersianDigits,
+                        withSound: event.notificationSound
                     )
                 }
             }
+
+        case .notifyMissed:
+            let pendingID = NotificationPlan.requestIdentifier(for: event)
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [pendingID])
+            deliverMissedNotification(
+                event: event,
+                language: settings.language,
+                persianDigits: settings.usePersianDigits,
+                timeZone: timeZone
+            )
+
+        case .skip:
+            break
         }
 
-        if settings.adhan.notificationsEnabled {
-            scheduleBackupNotifications(schedule: todaySchedule, settings: settings, timeZone: timeZone)
+        appNapAssertion?.end()
+        appNapAssertion = nil
+        onScheduleNeedsRefresh?()
+    }
+
+    private func applyNotificationPlan(
+        events: [AdhanEvent],
+        settings: AppSettings,
+        timeZone: TimeZone
+    ) async {
+        let pendingSnapshots = await fetchPendingNotificationSnapshots()
+        guard !Task.isCancelled else { return }
+
+        let plan = NotificationPlan.build(
+            events: settings.adhan.notificationsEnabled ? events : [],
+            pendingRequests: pendingSnapshots
+        )
+
+        scheduledNotificationIDs = Set(plan.toKeep).union(plan.toAdd.map(\.id))
+
+        let center = UNUserNotificationCenter.current()
+        if !plan.toRemove.isEmpty {
+            center.removePendingNotificationRequests(withIdentifiers: plan.toRemove)
         }
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+
+        for planned in plan.toAdd {
+            let content = buildNotificationContent(
+                for: planned.event,
+                language: settings.language,
+                persianDigits: settings.usePersianDigits
+            )
+            let components = calendar.dateComponents(
+                [.year, .month, .day, .hour, .minute, .second],
+                from: planned.fireDate
+            )
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let request = UNNotificationRequest(
+                identifier: planned.id,
+                content: content,
+                trigger: trigger
+            )
+            center.add(request, withCompletionHandler: nil)
+        }
+    }
+
+    private func buildNotificationContent(
+        for event: AdhanEvent,
+        language: AppLanguage,
+        persianDigits: Bool
+    ) -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = language == .persian ? AppConfig.persianAppName : AppConfig.appName
+        let prayerTitle = event.prayer.localizedName(for: language)
+
+        switch event.kind {
+        case .adhan:
+            content.body = LocalizedStrings.format("notification.adhan.body", language: language, prayerTitle)
+            content.categoryIdentifier = Constants.categoryID
+        case .reminder(let minutesBefore):
+            let mins = DigitFormatter.format(String(minutesBefore), persianDigits: persianDigits)
+            content.body = LocalizedStrings.format("notification.reminder.body", language: language, mins, prayerTitle)
+        }
+
+        content.sound = event.notificationSound ? .default : nil
+        content.userInfo = [
+            Constants.willPlayAudioKey: event.audio != nil
+        ]
+        return content
+    }
+
+    private func deliverImmediateReminderNotification(
+        prayer: Prayer,
+        minutesBefore: Int,
+        language: AppLanguage,
+        persianDigits: Bool,
+        withSound: Bool
+    ) {
+        let content = UNMutableNotificationContent()
+        content.title = language == .persian ? AppConfig.persianAppName : AppConfig.appName
+        let prayerTitle = prayer.localizedName(for: language)
+        let mins = DigitFormatter.format(String(minutesBefore), persianDigits: persianDigits)
+        content.body = LocalizedStrings.format("notification.reminder.body", language: language, mins, prayerTitle)
+        content.sound = withSound ? .default : nil
+        let request = UNNotificationRequest(
+            identifier: "\(NotificationPlan.reminderRequestPrefix)\(prayer.rawValue)-\(UUID().uuidString)",
+            content: content,
+            trigger: nil
+        )
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+
+    private func deliverMissedNotification(
+        event: AdhanEvent,
+        language: AppLanguage,
+        persianDigits: Bool,
+        timeZone: TimeZone
+    ) {
+        let content = UNMutableNotificationContent()
+        content.title = language == .persian ? AppConfig.persianAppName : AppConfig.appName
+        let prayerTitle = event.prayer.localizedName(for: language)
+        let timeString = DigitFormatter.formatTime(event.fireDate, timeZone: timeZone, persianDigits: persianDigits)
+        content.body = LocalizedStrings.format("notification.missed.body", language: language, prayerTitle, timeString)
+        content.sound = nil
+        let request = UNNotificationRequest(
+            identifier: "\(NotificationPlan.missedRequestPrefix)\(event.id)",
+            content: content,
+            trigger: nil
+        )
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 
     /// Schedules a refresh just after local midnight in the active location's time zone.
@@ -153,15 +358,15 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         systemObservers = [wakeObserver, tzObserver, dayObserver]
     }
 
-    private func configureNotificationCategories() {
+    private func configureNotificationCategories(language: AppLanguage) {
         let stopAction = UNNotificationAction(
             identifier: Constants.stopActionID,
-            title: "Stop",
+            title: LocalizedStrings.string("notification.action.stop", language: language),
             options: [.destructive]
         )
         let snoozeAction = UNNotificationAction(
             identifier: Constants.snoozeActionID,
-            title: "Snooze 5 min",
+            title: LocalizedStrings.string("notification.action.snooze", language: language),
             options: []
         )
         let category = UNNotificationCategory(
@@ -174,63 +379,42 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         center.setNotificationCategories([category])
     }
 
-    private func scheduleBackupNotifications(
-        schedule: DailyPrayerTimes?,
-        settings: AppSettings,
-        timeZone: TimeZone
-    ) {
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-
-        guard let schedule else { return }
-        let now = Date()
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = timeZone
-
-        for entry in schedule.orderedEntries(filteredBy: settings.visiblePrayers) where entry.date > now {
-            guard entry.prayer.isAdhanPrayer else { continue }
-            let content = UNMutableNotificationContent()
-            content.title = settings.language == .persian ? AppConfig.persianAppName : AppConfig.appName
-            content.body = entry.prayer.localizedName(for: settings.language)
-            content.sound = .default
-            content.categoryIdentifier = Constants.categoryID
-
-            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: entry.date)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request = UNNotificationRequest(
-                identifier: "owghat-\(schedule.dateKey)-\(entry.prayer.rawValue)",
-                content: content,
-                trigger: trigger
-            )
-            center.add(request)
-        }
+    private nonisolated func fetchAuthorizationStatus() async -> UNAuthorizationStatus {
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        return settings.authorizationStatus
     }
 
-    private func deliverImmediateReminderNotification(
-        prayer: Prayer,
-        minutesBefore: Int,
-        language: AppLanguage
-    ) {
-        let content = UNMutableNotificationContent()
-        content.title = language == .persian ? AppConfig.persianAppName : AppConfig.appName
-        let prayerTitle = prayer.localizedName(for: language)
-        content.body = language == .persian
-            ? "\(DigitFormatter.toPersian(String(minutesBefore))) دقیقه تا \(prayerTitle)"
-            : "\(minutesBefore) min until \(prayerTitle)"
-        content.sound = .default
-        let request = UNNotificationRequest(
-            identifier: "owghat-reminder-\(prayer.rawValue)-\(UUID().uuidString)",
-            content: content,
-            trigger: nil
-        )
-        UNUserNotificationCenter.current().add(request)
+    private nonisolated func fetchPendingNotificationSnapshots() async -> [PendingNotificationSnapshot] {
+        let requests = await UNUserNotificationCenter.current().pendingNotificationRequests()
+        return requests.map { req in
+            let nextTriggerDate: Date?
+            if let calTrigger = req.trigger as? UNCalendarNotificationTrigger {
+                nextTriggerDate = calTrigger.nextTriggerDate()
+            } else if let intervalTrigger = req.trigger as? UNTimeIntervalNotificationTrigger {
+                nextTriggerDate = intervalTrigger.nextTriggerDate()
+            } else {
+                nextTriggerDate = nil
+            }
+            let willPlayAudio = (req.content.userInfo[Constants.willPlayAudioKey] as? Bool) ?? false
+            return PendingNotificationSnapshot(
+                id: req.identifier,
+                fireDate: nextTriggerDate,
+                hasSound: req.content.sound != nil,
+                willPlayAudio: willPlayAudio
+            )
+        }
     }
 
     nonisolated func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
-        [.banner, .sound]
+        let willPlayAudio = (notification.request.content.userInfo[Constants.willPlayAudioKey] as? Bool) ?? false
+        let hasSound = notification.request.content.sound != nil
+        if willPlayAudio || !hasSound {
+            return [.banner, .list]
+        }
+        return [.banner, .list, .sound]
     }
 
     nonisolated func userNotificationCenter(
@@ -244,6 +428,8 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         await MainActor.run {
             if actionID == Constants.stopActionID || actionID == Constants.snoozeActionID {
                 audioPlayer.stop()
+            } else if actionID == UNNotificationDefaultActionIdentifier {
+                onOpenPanelOrWindow?()
             }
         }
 
@@ -255,7 +441,7 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
             snoozeContent.categoryIdentifier = Constants.categoryID
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 300, repeats: false)
             let request = UNNotificationRequest(
-                identifier: "owghat-snooze-\(UUID().uuidString)",
+                identifier: "\(NotificationPlan.snoozeRequestPrefix)\(UUID().uuidString)",
                 content: snoozeContent,
                 trigger: trigger
             )

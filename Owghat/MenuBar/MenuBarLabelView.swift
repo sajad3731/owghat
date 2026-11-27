@@ -58,6 +58,7 @@ struct MenuBarTimelineSchedule: TimelineSchedule, Sendable {
 /// Thin SwiftUI view rendering `MenuBarLabelFormatter` output as a single `Image` and `Text`.
 struct MenuBarLabelView: View {
     let appState: AppState
+    @Environment(\.openWindow) private var openWindow
     private let formatter = MenuBarLabelFormatter()
 
     var body: some View {
@@ -70,6 +71,9 @@ struct MenuBarLabelView: View {
                         .monospacedDigit()
                 }
             }
+        }
+        .onChange(of: appState.openMainWindowCounter) { _, _ in
+            WindowFocusHelper.openMainWindow(using: openWindow)
         }
     }
 
