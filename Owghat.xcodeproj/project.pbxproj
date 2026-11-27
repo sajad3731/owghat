@@ -33,6 +33,7 @@
 		D96EF31D8B6123747EAEEA57 /* OwghatCore in Frameworks */ = {isa = PBXBuildFile; productRef = 818F63A8E3C114CD54B8B92B /* OwghatCore */; };
 		DB34B7BB5F7423F806DD9994 /* EventsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F9E022272227611A10CA8 /* EventsSettingsView.swift */; };
 		E7889E23591C8296FDA29C61 /* AdhanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215D8222ED9D36CD8FC408C7 /* AdhanSettingsView.swift */; };
+		EF5891E92CA9F0FB1E8489D2 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFBDEFFF9A9057779B8F452 /* LocalizedStrings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		E195A2108CBB4C5BF8AC690D /* MenuBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabelView.swift; sourceTree = "<group>"; };
 		E630AC350A6A6F0C87B25959 /* WindowFocusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFocusHelper.swift; sourceTree = "<group>"; };
 		ED7B2E275A32EA6F06476B1F /* OwghatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwghatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDFBDEFFF9A9057779B8F452 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		F2C9BCC43596DE68F6B93748 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F8F5D74A40740C60AF9AA747 /* PrayerCalculationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerCalculationSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 			children = (
 				C9568F7CF4D9EF77B4B0E263 /* AppState.swift */,
 				913A276D423FCD519EDEA3A5 /* Color+Hex.swift */,
+				EDFBDEFFF9A9057779B8F452 /* LocalizedStrings.swift */,
 				3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */,
 				E630AC350A6A6F0C87B25959 /* WindowFocusHelper.swift */,
 			);
@@ -404,6 +407,7 @@
 				06299388C183D10C62C17D9B /* Color+Hex.swift in Sources */,
 				DB34B7BB5F7423F806DD9994 /* EventsSettingsView.swift in Sources */,
 				920D3DF7505DE778CE36A000 /* GeneralSettingsView.swift in Sources */,
+				EF5891E92CA9F0FB1E8489D2 /* LocalizedStrings.swift in Sources */,
 				9E6F6C67BDCE15537BEC6129 /* LocationManager.swift in Sources */,
 				7C4DB15AAFC77D91C9D82E67 /* MenuBarLabelView.swift in Sources */,
 				BBBD311D60C746F105B31476 /* MenuBarPanelView.swift in Sources */,

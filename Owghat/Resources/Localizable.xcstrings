@@ -1,10 +1,226 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "adhan.audio.bundled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bundled Chime" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "زنگ پیش‌فرض" } }
+      }
+    },
+    "adhan.audio.none" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "None" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "بدون صدا" } }
+      }
+    },
+    "adhan.clips.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "حذف" } }
+      }
+    },
+    "adhan.clips.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No custom audio clips imported yet." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "هنوز فایل صوتی سفارشی وارد نشده است." } }
+      }
+    },
+    "adhan.clips.import" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Import Audio File…" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "افزودن فایل صوتی…" } }
+      }
+    },
+    "adhan.clips.missing_fallback" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom audio for %@ was missing or unreadable; played bundled chime instead." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "فایل صوتی سفارشی برای %@ پیدا نشد یا قابل پخش نبود؛ زنگ پیش‌فرض پخش شد." } }
+      }
+    },
+    "adhan.clips.preview" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Preview audio" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "پخش آزمایشی" } }
+      }
+    },
+    "adhan.clips.reassigned_notice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clip removed. Reassigned %@ to the bundled chime." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "فایل صوتی حذف شد و %@ به زنگ پیش‌فرض تغییر یافت." } }
+      }
+    },
+    "adhan.clips.rename" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clip name" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "نام فایل صوتی" } }
+      }
+    },
+    "adhan.clips.section" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom Audio Clips" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "فایل‌های صوتی سفارشی" } }
+      }
+    },
+    "adhan.clips.stop_preview" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stop preview" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "توقف پخش آزمایشی" } }
+      }
+    },
+    "adhan.fade_in" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fade-in" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "افزایش تدریجی صدا" } }
+      }
+    },
+    "adhan.fade_in.seconds" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ s" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "%@ ثانیه" } }
+      }
+    },
+    "adhan.notifications.denied_warning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications are disabled for Owghat in System Settings." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اعلان‌ها برای اوقات در تنظیمات سیستم غیرفعال است." } }
+      }
+    },
+    "adhan.notifications.enable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Backup Notifications" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اعلان‌های پشتیبان" } }
+      }
+    },
+    "adhan.notifications.open_settings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Notification Settings" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "باز کردن تنظیمات اعلان‌ها" } }
+      }
+    },
+    "adhan.notifications.silent_on_muted" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Silent Banner on Muted Days" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اعلان بی‌صدا در روزهای بی‌صدا" } }
+      }
+    },
+    "adhan.playback.section" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Playback & Alerts" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "پخش و هشدارها" } }
+      }
+    },
+    "adhan.post_doa" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Post-Adhan Doa" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "دعای پس از اذان" } }
+      }
+    },
+    "adhan.prayer_audio.section" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prayer Audio" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "صدای اذان هر نماز" } }
+      }
+    },
+    "adhan.reminder.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pre-Adhan Reminder" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "یادآور پیش از اذان" } }
+      }
+    },
+    "adhan.reminder.minutes" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ min before" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "%@ دقیقه قبل" } }
+      }
+    },
+    "adhan.reminder.off" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Off" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "خاموش" } }
+      }
+    },
+    "adhan.system.launch_at_login" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Launch at Login" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اجرا هنگام ورود به سیستم" } }
+      }
+    },
+    "adhan.system.open_login_items" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Login Items" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "باز کردن Login Items" } }
+      }
+    },
+    "adhan.system.requires_approval" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Approval required in System Settings → Login Items." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "نیاز به تأیید در تنظیمات سیستم ← Login Items دارد." } }
+      }
+    },
+    "adhan.system.section" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "System & Background" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "سیستم و پس‌زمینه" } }
+      }
+    },
+    "adhan.system.show_dock_icon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Show Dock Icon" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "نمایش آیکون در داک" } }
+      }
+    },
+    "adhan.system.status.enabled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status: Enabled" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وضعیت: فعال" } }
+      }
+    },
+    "adhan.system.status.not_found" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status: Unavailable" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وضعیت: در دسترس نیست" } }
+      }
+    },
+    "adhan.system.status.not_registered" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status: Disabled" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وضعیت: غیرفعال" } }
+      }
+    },
+    "adhan.system.status.requires_approval" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status: Requires Approval" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وضعیت: نیازمند تأیید" } }
+      }
+    },
+    "adhan.volume" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Volume" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "بلندی صدا" } }
+      }
+    },
     "app.name" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Owghat" } },
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات" } }
+      }
+    },
+    "error.audio.invalid_duration" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Audio duration must be greater than 0 and at most 15 minutes." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "مدت‌زمان فایل صوتی باید بیشتر از صفر و حداکثر ۱۵ دقیقه باشد." } }
+      }
+    },
+    "error.audio.unreadable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to read the selected audio file." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "فایل صوتی انتخاب‌شده قابل خواندن نیست." } }
+      }
+    },
+    "error.audio.unsupported_format" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unsupported audio format." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "فرمت فایل صوتی پشتیبانی نمی‌شود." } }
       }
     },
     "menubar.dismiss_warning" : {
@@ -95,6 +311,36 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Upcoming Occasion" } },
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "مناسبت پیشِ رو" } }
+      }
+    },
+    "notification.action.snooze" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snooze 5 min" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "تعویق ۵ دقیقه‌ای" } }
+      }
+    },
+    "notification.action.stop" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stop" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "توقف" } }
+      }
+    },
+    "notification.adhan.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time for %@" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وقت %@" } }
+      }
+    },
+    "notification.missed.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Missed %@ at %@ while Mac was asleep." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "%@ در ساعت %@ هنگام خواب بودن مک سپری شد." } }
+      }
+    },
+    "notification.reminder.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ min until %@" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "%@ دقیقه تا %@" } }
       }
     },
     "settings.tab.adhan" : {

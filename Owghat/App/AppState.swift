@@ -2,6 +2,7 @@ import Foundation
 import OwghatCore
 import ServiceManagement
 import SwiftUI
+import UserNotifications
 import WidgetKit
 
 /// Selectable tabs in the macOS Settings window.
@@ -21,14 +22,20 @@ final class AppState {
     var yesterdaySchedule: DailyPrayerTimes?
     var todaySchedule: DailyPrayerTimes?
     var tomorrowSchedule: DailyPrayerTimes?
+    var dayAfterSchedule: DailyPrayerTimes?
     var nextPrayer: NextPrayerResolution?
     var todayOccasions: [Occasion] = []
     var upcomingOccasions: [DatedOccasion] = []
     var dates: TripleCalendarDate?
     var isPlayingAdhan: Bool = false
+    var currentPlayingPrayer: Prayer?
     var isRefreshing: Bool = false
     var statusMessage: String?
     var selectedSettingsTab: SettingsTab = .general
+    var launchAtLoginStatus: SMAppService.Status = SMAppService.mainApp.status
+    var launchAtLoginError: String?
+    var notificationAuthorizationStatus: UNAuthorizationStatus = .notDetermined
+    var openMainWindowCounter: Int = 0
 
     private let settingsStore: SettingsStore
     private let provider: any PrayerTimesProvider
@@ -54,14 +61,23 @@ final class AppState {
         self.settings = settingsStore.loadSettings()
         self.scheduler = AdhanScheduler(audioPlayer: audioPlayer)
 
-        audioPlayer.onPlaybackStateChanged = { [weak self] playing in
+        audioPlayer.onPlaybackStateChanged = { [weak self] playing, prayer in
             self?.isPlayingAdhan = playing
+            self?.currentPlayingPrayer = prayer
+        }
+
+        audioPlayer.onPlaybackWarning = { [weak self] warning in
+            self?.statusMessage = warning
         }
 
         scheduler.onScheduleNeedsRefresh = { [weak self] in
             Task { @MainActor [weak self] in
                 await self?.refreshSchedule(force: true)
             }
+        }
+
+        scheduler.onOpenPanelOrWindow = { [weak self] in
+            self?.openMainWindowCounter += 1
         }
 
         locationManager.onLocationUpdated = { [weak self] location in
@@ -77,9 +93,10 @@ final class AppState {
         }
 
         applyDockIconPolicy()
+        syncLaunchAtLoginStatus(updateStoredToggle: true)
 
         Task {
-            await scheduler.requestNotificationPermission()
+            notificationAuthorizationStatus = await scheduler.requestNotificationPermissionOnce()
             await refreshSchedule(force: true)
         }
     }
@@ -101,6 +118,9 @@ final class AppState {
     }
 
     func updateSettings(_ transform: (inout AppSettings) -> Void) {
+        let previousLaunchAtLogin = settings.adhan.launchAtLogin
+        let previousShowDockIcon = settings.adhan.showDockIcon
+
         transform(&settings)
         do {
             try settingsStore.saveSettings(settings)
@@ -108,8 +128,13 @@ final class AppState {
         } catch {
             statusMessage = error.localizedDescription
         }
-        applyDockIconPolicy()
-        applyLaunchAtLogin()
+
+        if settings.adhan.showDockIcon != previousShowDockIcon {
+            applyDockIconPolicy()
+        }
+        if settings.adhan.launchAtLogin != previousLaunchAtLogin {
+            applyLaunchAtLogin(enabled: settings.adhan.launchAtLogin)
+        }
 
         Task {
             await refreshSchedule(force: true)
@@ -149,10 +174,12 @@ final class AppState {
         gregorian.timeZone = tz
         let yesterdayDate = gregorian.date(byAdding: .day, value: -1, to: now) ?? now
         let tomorrowDate = gregorian.date(byAdding: .day, value: 1, to: now) ?? now
+        let dayAfterDate = gregorian.date(byAdding: .day, value: 2, to: now) ?? tomorrowDate
 
         let yesterdayComponents = gregorian.dateComponents([.year, .month, .day], from: yesterdayDate)
         let todayComponents = gregorian.dateComponents([.year, .month, .day], from: now)
         let tomorrowComponents = gregorian.dateComponents([.year, .month, .day], from: tomorrowDate)
+        let dayAfterComponents = gregorian.dateComponents([.year, .month, .day], from: dayAfterDate)
 
         do {
             let yesterday = try await provider.prayerTimes(
@@ -173,10 +200,17 @@ final class AppState {
                 timeZone: tz,
                 settings: settings
             )
+            let dayAfter = try await provider.prayerTimes(
+                for: dayAfterComponents,
+                location: location,
+                timeZone: tz,
+                settings: settings
+            )
 
             yesterdaySchedule = yesterday
             todaySchedule = today
             tomorrowSchedule = tomorrow
+            dayAfterSchedule = dayAfter
 
             let resolvedNext = resolver.nextPrayer(
                 at: now,
@@ -208,10 +242,10 @@ final class AppState {
             WidgetCenter.shared.reloadAllTimelines()
 
             scheduler.arm(
-                nextResolution: resolvedNext,
-                todaySchedule: today,
+                schedules: [yesterday, today, tomorrow, dayAfter],
                 settings: settings,
-                timeZone: tz
+                timeZone: tz,
+                now: now
             )
 
             if let resolvedNext, resolvedNext.entry.date > now {
@@ -259,8 +293,28 @@ final class AppState {
     }
 
     func previewAdhan(for prayer: Prayer) {
+        if isPlayingAdhan && currentPlayingPrayer == prayer {
+            audioPlayer.stop()
+            return
+        }
         let choice = settings.adhan.audioPerPrayer[prayer] ?? .bundledPlaceholder
-        audioPlayer.play(choice: choice, postAdhanDoa: .none, settings: settings.adhan)
+        let resolvedChoice: PrayerAudioChoice = (choice == .none) ? .bundledPlaceholder : choice
+        audioPlayer.play(
+            prayer: prayer,
+            choice: resolvedChoice,
+            postAdhanDoa: .none,
+            settings: settings.adhan,
+            language: settings.language
+        )
+    }
+
+    func setLiveVolume(_ volume: Double) {
+        audioPlayer.setLiveVolume(volume)
+    }
+
+    func commitVolume(_ volume: Double) {
+        let clamped = max(0, min(1, volume))
+        updateSettings { $0.adhan.volume = clamped }
     }
 
     func importAudioFile(from url: URL) {
@@ -269,8 +323,53 @@ final class AppState {
             updateSettings { settings in
                 settings.adhan.importedClips.append(clip)
             }
+        } catch let importError as AudioImportError {
+            statusMessage = importError.localizedDescription(for: settings.language)
         } catch {
             statusMessage = error.localizedDescription
+        }
+    }
+
+    func renameImportedClip(id: UUID, newName: String) {
+        let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        updateSettings { settings in
+            if let index = settings.adhan.importedClips.firstIndex(where: { $0.id == id }) {
+                settings.adhan.importedClips[index].displayName = trimmed
+            }
+        }
+    }
+
+    func deleteImportedClip(_ clip: ImportedAudioClip) {
+        audioPlayer.removeImportedAudio(clip)
+        var affected: [Prayer] = []
+        updateSettings { settings in
+            affected = settings.adhan.removeImportedClip(id: clip.id)
+        }
+        if !affected.isEmpty {
+            let names = affected
+                .map { $0.localizedName(for: settings.language) }
+                .joined(separator: settings.language == .persian ? "، " : ", ")
+            statusMessage = LocalizedStrings.format(
+                "adhan.clips.reassigned_notice",
+                language: settings.language,
+                names
+            )
+        }
+    }
+
+    func syncSystemStatuses() async {
+        syncLaunchAtLoginStatus(updateStoredToggle: true)
+        notificationAuthorizationStatus = await scheduler.currentNotificationAuthorizationStatus()
+    }
+
+    func setLaunchAtLogin(_ enabled: Bool) {
+        updateSettings { $0.adhan.launchAtLogin = enabled }
+    }
+
+    func openNotificationSystemSettings() {
+        if let url = URL(string: "x-apple.systempreferences:com.apple.Notifications-Settings.extension") {
+            NSWorkspace.shared.open(url)
         }
     }
 
@@ -288,18 +387,32 @@ final class AppState {
         NSApp?.setActivationPolicy(policy)
     }
 
-    private func applyLaunchAtLogin() {
+    private func syncLaunchAtLoginStatus(updateStoredToggle: Bool) {
+        let currentStatus = SMAppService.mainApp.status
+        launchAtLoginStatus = currentStatus
+        guard updateStoredToggle else { return }
+
+        let effectiveEnabled = (currentStatus == .enabled || currentStatus == .requiresApproval)
+        if settings.adhan.launchAtLogin != effectiveEnabled {
+            settings.adhan.launchAtLogin = effectiveEnabled
+            try? settingsStore.saveSettings(settings)
+        }
+    }
+
+    private func applyLaunchAtLogin(enabled: Bool) {
+        launchAtLoginError = nil
         do {
-            if settings.adhan.launchAtLogin {
+            if enabled {
                 if SMAppService.mainApp.status != .enabled {
                     try SMAppService.mainApp.register()
                 }
-            } else if SMAppService.mainApp.status == .enabled {
+            } else if SMAppService.mainApp.status == .enabled || SMAppService.mainApp.status == .requiresApproval {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
-            // Registration requires a signed app bundle; keep silent during unsigned dev builds.
+            launchAtLoginError = error.localizedDescription
         }
+        syncLaunchAtLoginStatus(updateStoredToggle: false)
     }
 
     /// Fires a single refresh right after the next prayer boundary passes (no 1 Hz polling).

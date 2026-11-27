@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `AdhanEvent`, `AdhanPlanner` (48-hour horizon independent of display visibility), `AdhanFireDecision` (90-second grace window), and `NotificationPlan` (diff-based scheduling capped at 48 requests while preserving snoozes) in `OwghatCore` with unit tests.
+- Validated custom audio import (`0 < duration <= 15 min`), live volume dragging with persistence on release, clip rename/delete with prayer reassignment, and missing-clip fallback in `AdhanAudioPlayer` and `AdhanSettingsView`.
+- `ProcessInfo` App Nap activity assertions (~60s pre-event) and `SMAppService.mainApp` status synchronization with Login Items approval UI.
 - `MenuBarLabelFormatter`, `PanelSchedule`, `PanelHeader`, `PanelOccasionsDisplay`, and `RefreshBackoff` in `OwghatCore` with unit tests covering label styles, rounding, tomorrow/passed states, progress ring calculation, localized punctuation, DST boundaries, and retry backoff.
 - Redesigned `MenuBarPanelView` with circular countdown progress ring, passed/next/upcoming prayer states, tomorrow marker, nearest upcoming occasion fallback, dismissible status banner, keyboard shortcuts (`⌘,`, `⌘R`, `⌘M`, `⌘Q`, `Esc`), VoiceOver accessibility labels, and main window / focused Settings actions.
 - Minute-aligned `MenuBarTimelineSchedule` in `MenuBarLabelView` and location-timezone midnight rollover timer in `AdhanScheduler`.
@@ -20,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions CI workflow on `macos-15`, issue templates, `docs/ROADMAP.md`, `CONTRIBUTING.md`, bilingual `README.md`, and MIT `LICENSE`.
 
 ### Fixed
+- Prevented stale post-sleep Adhan playback beyond a 90-second grace window (posting a quiet missed alert instead), decoupled scheduling from `visiblePrayers`, suppressed double notification sounds while in-app audio plays, honored mute/`.none` in system notifications, and preserved pending snoozes across 48-hour notification diffs.
+- Localized all notification actions/bodies, audio import errors, and Adhan settings controls into `Localizable.xcstrings` (`fa`, `en`).
 - Next-prayer highlight now compares prayer identity and timestamp instead of prayer kind alone, preventing today's Fajr from highlighting after Isha/midnight.
 - Replaced per-second `AppState` polling with a boundary refresh timer and failure backoff (`30s`, `2m`, `5m`).
 - Removed hardcoded Persian punctuation (`،`, `•`) from the panel header and localized all panel strings in `Localizable.xcstrings` (`fa`, `en`).

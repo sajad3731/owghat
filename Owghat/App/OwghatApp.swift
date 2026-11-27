@@ -11,6 +11,7 @@ struct OwghatApp: App {
         MenuBarExtra {
             MenuBarPanelView(appState: appState, showsOpenWindowButton: true)
                 .environment(\.layoutDirection, appState.settings.language.isRTL ? .rightToLeft : .leftToRight)
+                .environment(\.locale, Locale(identifier: appState.settings.language.rawValue))
                 .preferredColorScheme(preferredColorScheme)
                 .tint(appState.accentColor)
         } label: {
@@ -21,12 +22,14 @@ struct OwghatApp: App {
         Settings {
             SettingsView(appState: appState)
                 .environment(\.layoutDirection, appState.settings.language.isRTL ? .rightToLeft : .leftToRight)
+                .environment(\.locale, Locale(identifier: appState.settings.language.rawValue))
                 .preferredColorScheme(preferredColorScheme)
         }
 
         Window(appTitle, id: "main") {
             MainOverviewView(appState: appState)
                 .environment(\.layoutDirection, appState.settings.language.isRTL ? .rightToLeft : .leftToRight)
+                .environment(\.locale, Locale(identifier: appState.settings.language.rawValue))
                 .preferredColorScheme(preferredColorScheme)
                 .tint(appState.accentColor)
         }
