@@ -40,6 +40,24 @@ public struct NextPrayerResolution: Sendable, Equatable {
 public struct PrayerTimeResolver: Sendable {
     public init() {}
 
+    /// Finds the earliest visible prayer strictly after `referenceDate` from pre-fetched daily schedules.
+    public func nextPrayer(
+        at referenceDate: Date,
+        schedules: [DailyPrayerTimes],
+        visiblePrayers: Set<Prayer>
+    ) -> NextPrayerResolution? {
+        let upcomingEntries = schedules.flatMap { schedule in
+            schedule.orderedEntries(filteredBy: visiblePrayers).filter { $0.date > referenceDate }
+        }
+        guard let next = upcomingEntries.min(by: { $0.date < $1.date }) else {
+            return nil
+        }
+        return NextPrayerResolution(
+            entry: next,
+            remainingInterval: next.date.timeIntervalSince(referenceDate)
+        )
+    }
+
     /// Finds the earliest visible prayer strictly after `referenceDate` across yesterday, today, and tomorrow.
     public func nextPrayer(
         at referenceDate: Date,
@@ -68,7 +86,7 @@ public struct PrayerTimeResolver: Sendable {
             return gregorian.dateComponents([.year, .month, .day], from: shifted)
         }
 
-        var upcomingEntries: [PrayerTimeEntry] = []
+        var schedules: [DailyPrayerTimes] = []
         for dayComponents in candidateDays {
             let schedule = try await provider.prayerTimes(
                 for: dayComponents,
@@ -76,17 +94,9 @@ public struct PrayerTimeResolver: Sendable {
                 timeZone: timeZone,
                 settings: settings
             )
-            let visible = schedule.orderedEntries(filteredBy: settings.visiblePrayers)
-            upcomingEntries.append(contentsOf: visible.filter { $0.date > referenceDate })
+            schedules.append(schedule)
         }
 
-        guard let next = upcomingEntries.min(by: { $0.date < $1.date }) else {
-            return nil
-        }
-
-        return NextPrayerResolution(
-            entry: next,
-            remainingInterval: next.date.timeIntervalSince(referenceDate)
-        )
+        return nextPrayer(at: referenceDate, schedules: schedules, visiblePrayers: settings.visiblePrayers)
     }
 }

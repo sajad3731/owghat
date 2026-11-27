@@ -19,10 +19,10 @@ This document tracks the development milestones for Owghat (اوقات), a nativ
 - [x] Write `OwghatCoreTests` covering Tehran dates, offsets/overrides, calendar offsets, midnight rollover, and DST/timezone edge cases
 
 ## M2 — Menu Bar Panel
-- [ ] Polish `MenuBarExtra` `.window` popover layout, visual hierarchy, and keyboard navigation
-- [ ] Add live countdown ring/header with next prayer highlight and full RTL/LTR layout polish
-- [ ] Support all menu bar label variants (icon only, next prayer + time, countdown, Persian/Latin digits)
-- [ ] Add quick actions in panel (mute today, stop playing Adhan, refresh online comparison, open settings)
+- [x] Polish `MenuBarExtra` `.window` popover layout, visual hierarchy, and keyboard navigation
+- [x] Add live countdown ring/header with next prayer highlight and full RTL/LTR layout polish
+- [x] Support all menu bar label variants (icon only, next prayer + time, countdown, Persian/Latin digits)
+- [x] Add quick actions in panel (mute today, stop playing Adhan, refresh online comparison, open settings)
 
 ## M3 — Adhan Scheduler + Audio + Notifications + Launch at Login
 - [ ] Harden timer arming and re-arming across `NSWorkspace.didWakeNotification`, time zone changes, and day rollover

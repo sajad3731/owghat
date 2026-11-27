@@ -4,11 +4,21 @@ import ServiceManagement
 import SwiftUI
 import WidgetKit
 
+/// Selectable tabs in the macOS Settings window.
+enum SettingsTab: Hashable {
+    case general
+    case calculation
+    case adhan
+    case appearance
+    case events
+}
+
 /// Central observable state coordinating settings, prayer schedule, audio playback, and widgets.
 @Observable
 @MainActor
 final class AppState {
     var settings: AppSettings
+    var yesterdaySchedule: DailyPrayerTimes?
     var todaySchedule: DailyPrayerTimes?
     var tomorrowSchedule: DailyPrayerTimes?
     var nextPrayer: NextPrayerResolution?
@@ -16,10 +26,12 @@ final class AppState {
     var upcomingOccasions: [DatedOccasion] = []
     var dates: TripleCalendarDate?
     var isPlayingAdhan: Bool = false
+    var isRefreshing: Bool = false
     var statusMessage: String?
+    var selectedSettingsTab: SettingsTab = .general
 
     private let settingsStore: SettingsStore
-    private let provider = HybridPrayerTimesProvider()
+    private let provider: any PrayerTimesProvider
     private let resolver = PrayerTimeResolver()
     private let occasionStore = OccasionStore()
     private let calendarConverter = CalendarConverter()
@@ -28,10 +40,17 @@ final class AppState {
     let locationManager = LocationManager()
     let cityDatabase = CityDatabase()
 
-    private var countdownTask: Task<Void, Never>?
+    private var boundaryRefreshTask: Task<Void, Never>?
+    private var retryRefreshTask: Task<Void, Never>?
+    private var refreshBackoff = RefreshBackoff()
+    private var refreshCoalescer = RefreshCoalescer()
 
-    init(settingsStore: SettingsStore = SettingsStore()) {
+    init(
+        settingsStore: SettingsStore = SettingsStore(),
+        provider: any PrayerTimesProvider = HybridPrayerTimesProvider()
+    ) {
         self.settingsStore = settingsStore
+        self.provider = provider
         self.settings = settingsStore.loadSettings()
         self.scheduler = AdhanScheduler(audioPlayer: audioPlayer)
 
@@ -41,7 +60,7 @@ final class AppState {
 
         scheduler.onScheduleNeedsRefresh = { [weak self] in
             Task { @MainActor [weak self] in
-                await self?.refreshSchedule()
+                await self?.refreshSchedule(force: true)
             }
         }
 
@@ -58,11 +77,10 @@ final class AppState {
         }
 
         applyDockIconPolicy()
-        startCountdownLoop()
 
         Task {
             await scheduler.requestNotificationPermission()
-            await refreshSchedule()
+            await refreshSchedule(force: true)
         }
     }
 
@@ -72,6 +90,14 @@ final class AppState {
 
     var isMutedToday: Bool {
         settings.adhan.isMuted(on: Date(), timeZone: activeTimeZone)
+    }
+
+    var accentColor: Color {
+        Color(owghatHex: settings.accentColorHex)
+    }
+
+    func dismissStatusMessage() {
+        statusMessage = nil
     }
 
     func updateSettings(_ transform: (inout AppSettings) -> Void) {
@@ -86,21 +112,55 @@ final class AppState {
         applyLaunchAtLogin()
 
         Task {
-            await refreshSchedule()
+            await refreshSchedule(force: true)
         }
     }
 
-    func refreshSchedule(now: Date = Date()) async {
+    /// Refreshes the schedule. A request made while a refresh is running is queued and runs
+    /// right after it with the latest settings, so rapid setting changes are never lost.
+    func refreshSchedule(now: Date = Date(), force: Bool = false) async {
+        guard refreshCoalescer.begin(force: force) else { return }
+        isRefreshing = true
+
+        var runNow = now
+        var runForce = force
+        while true {
+            await performRefresh(now: runNow, force: runForce)
+            guard let queuedForce = refreshCoalescer.finish() else { break }
+            runNow = Date()
+            runForce = queuedForce
+        }
+
+        isRefreshing = false
+    }
+
+    private func performRefresh(now: Date, force: Bool) async {
+        if !force && !refreshBackoff.canRetry(at: now) {
+            return
+        }
+
+        retryRefreshTask?.cancel()
+        retryRefreshTask = nil
+
         let tz = activeTimeZone
         let location = settings.selectedLocation
 
         var gregorian = Calendar(identifier: .gregorian)
         gregorian.timeZone = tz
-        let todayComponents = gregorian.dateComponents([.year, .month, .day], from: now)
+        let yesterdayDate = gregorian.date(byAdding: .day, value: -1, to: now) ?? now
         let tomorrowDate = gregorian.date(byAdding: .day, value: 1, to: now) ?? now
+
+        let yesterdayComponents = gregorian.dateComponents([.year, .month, .day], from: yesterdayDate)
+        let todayComponents = gregorian.dateComponents([.year, .month, .day], from: now)
         let tomorrowComponents = gregorian.dateComponents([.year, .month, .day], from: tomorrowDate)
 
         do {
+            let yesterday = try await provider.prayerTimes(
+                for: yesterdayComponents,
+                location: location,
+                timeZone: tz,
+                settings: settings
+            )
             let today = try await provider.prayerTimes(
                 for: todayComponents,
                 location: location,
@@ -114,15 +174,16 @@ final class AppState {
                 settings: settings
             )
 
+            yesterdaySchedule = yesterday
             todaySchedule = today
             tomorrowSchedule = tomorrow
-            nextPrayer = try await resolver.nextPrayer(
+
+            let resolvedNext = resolver.nextPrayer(
                 at: now,
-                location: location,
-                timeZone: tz,
-                settings: settings,
-                provider: provider
+                schedules: [yesterday, today, tomorrow],
+                visiblePrayers: settings.visiblePrayers
             )
+            nextPrayer = resolvedNext
 
             dates = calendarConverter.allDates(
                 for: now,
@@ -147,14 +208,39 @@ final class AppState {
             WidgetCenter.shared.reloadAllTimelines()
 
             scheduler.arm(
-                nextResolution: nextPrayer,
+                nextResolution: resolvedNext,
                 todaySchedule: today,
                 settings: settings,
                 timeZone: tz
             )
+
+            if let resolvedNext, resolvedNext.entry.date > now {
+                refreshBackoff.recordSuccess()
+                scheduleBoundaryRefresh(for: resolvedNext.entry.date, now: now)
+            } else if !settings.visiblePrayers.isEmpty {
+                let delay = refreshBackoff.recordFailure(at: now)
+                scheduleRetryRefresh(after: delay)
+            } else {
+                refreshBackoff.recordSuccess()
+                boundaryRefreshTask?.cancel()
+                boundaryRefreshTask = nil
+            }
         } catch {
             statusMessage = error.localizedDescription
+            let delay = refreshBackoff.recordFailure(at: now)
+            scheduleRetryRefresh(after: delay)
         }
+    }
+
+    func justReachedEntry(at now: Date) -> PrayerTimeEntry? {
+        let candidates = [yesterdaySchedule, todaySchedule, tomorrowSchedule]
+            .compactMap { $0?.orderedEntries(filteredBy: settings.visiblePrayers) }
+            .flatMap { $0 }
+            .filter { entry in
+                let elapsed = now.timeIntervalSince(entry.date)
+                return elapsed >= 0 && elapsed < MenuBarLabelFormatter.boundaryBannerDuration
+            }
+        return candidates.max { $0.date < $1.date }
     }
 
     func toggleMuteToday() {
@@ -216,21 +302,28 @@ final class AppState {
         }
     }
 
-    private func startCountdownLoop() {
-        countdownTask?.cancel()
-        countdownTask = Task { [weak self] in
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(1))
-                guard let self, !Task.isCancelled else { break }
-                if let entry = self.nextPrayer?.entry {
-                    let remaining = entry.date.timeIntervalSinceNow
-                    if remaining <= 0 {
-                        await self.refreshSchedule()
-                    } else {
-                        self.nextPrayer = NextPrayerResolution(entry: entry, remainingInterval: remaining)
-                    }
-                }
-            }
+    /// Fires a single refresh right after the next prayer boundary passes (no 1 Hz polling).
+    private func scheduleBoundaryRefresh(for targetDate: Date, now: Date) {
+        boundaryRefreshTask?.cancel()
+        let delay = max(0.05, targetDate.timeIntervalSince(now) + 0.05)
+        boundaryRefreshTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(delay))
+            guard !Task.isCancelled, let self else { return }
+            // Drop the handle first: the refresh reschedules this task and must not cancel
+            // the task it is running in (that would cancel its own network fetch).
+            self.boundaryRefreshTask = nil
+            await self.refreshSchedule(force: false)
+        }
+    }
+
+    private func scheduleRetryRefresh(after delay: TimeInterval) {
+        retryRefreshTask?.cancel()
+        retryRefreshTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(delay))
+            guard !Task.isCancelled, let self else { return }
+            // Same as above: `performRefresh` cancels `retryRefreshTask` before fetching.
+            self.retryRefreshTask = nil
+            await self.refreshSchedule(force: false)
         }
     }
 }
