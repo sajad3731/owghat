@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -37,3 +38,29 @@ jobs:
           CODE_SIGNING_ALLOWED=NO
           CODE_SIGNING_REQUIRED=NO
           CODE_SIGN_IDENTITY=""
+
+      # Unsigned Release build for local installs. Skipped on pull requests to keep them fast.
+      - name: Build Release app
+        if: github.event_name != 'pull_request'
+        run: >
+          xcodebuild build
+          -project Owghat.xcodeproj
+          -scheme Owghat
+          -configuration Release
+          -destination "generic/platform=macOS"
+          -derivedDataPath build
+          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_REQUIRED=NO
+          CODE_SIGN_IDENTITY=""
+
+      - name: Package Release app
+        if: github.event_name != 'pull_request'
+        run: ditto -c -k --sequesterRsrc --keepParent build/Build/Products/Release/Owghat.app Owghat.zip
+
+      - name: Upload Release app
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Owghat-app
+          path: Owghat.zip
+          retention-days: 14
