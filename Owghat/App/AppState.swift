@@ -43,6 +43,7 @@ final class AppState {
     private var boundaryRefreshTask: Task<Void, Never>?
     private var retryRefreshTask: Task<Void, Never>?
     private var refreshBackoff = RefreshBackoff()
+    private var refreshCoalescer = RefreshCoalescer()
 
     init(
         settingsStore: SettingsStore = SettingsStore(),
@@ -115,14 +116,28 @@ final class AppState {
         }
     }
 
+    /// Refreshes the schedule. A request made while a refresh is running is queued and runs
+    /// right after it with the latest settings, so rapid setting changes are never lost.
     func refreshSchedule(now: Date = Date(), force: Bool = false) async {
-        guard !isRefreshing else { return }
+        guard refreshCoalescer.begin(force: force) else { return }
+        isRefreshing = true
+
+        var runNow = now
+        var runForce = force
+        while true {
+            await performRefresh(now: runNow, force: runForce)
+            guard let queuedForce = refreshCoalescer.finish() else { break }
+            runNow = Date()
+            runForce = queuedForce
+        }
+
+        isRefreshing = false
+    }
+
+    private func performRefresh(now: Date, force: Bool) async {
         if !force && !refreshBackoff.canRetry(at: now) {
             return
         }
-
-        isRefreshing = true
-        defer { isRefreshing = false }
 
         retryRefreshTask?.cancel()
         retryRefreshTask = nil
@@ -294,6 +309,9 @@ final class AppState {
         boundaryRefreshTask = Task { [weak self] in
             try? await Task.sleep(for: .seconds(delay))
             guard !Task.isCancelled, let self else { return }
+            // Drop the handle first: the refresh reschedules this task and must not cancel
+            // the task it is running in (that would cancel its own network fetch).
+            self.boundaryRefreshTask = nil
             await self.refreshSchedule(force: false)
         }
     }
@@ -303,6 +321,8 @@ final class AppState {
         retryRefreshTask = Task { [weak self] in
             try? await Task.sleep(for: .seconds(delay))
             guard !Task.isCancelled, let self else { return }
+            // Same as above: `performRefresh` cancels `retryRefreshTask` before fetching.
+            self.retryRefreshTask = nil
             await self.refreshSchedule(force: false)
         }
     }
