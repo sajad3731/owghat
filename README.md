@@ -64,8 +64,10 @@ Owghat does **not** ship any copyrighted Adhan recordings. A minimal royalty-fre
 
 To use your own Adhan or Doa recordings (`.mp3`, `.m4a`, `.wav`, `.aiff`, `.caf`):
 1. Open **Settings → Adhan & Alerts**.
-2. Click **Import Audio File…** and select a recording from your Mac.
+2. Click **Import Audio File…** and select a recording from your Mac (validated to be readable with duration `0 < d ≤ 15 min`).
 3. Imported files are copied into `~/Library/Application Support/Owghat/Audio/` and referenced by ID so you can assign different clips per prayer or as a post-Adhan Doa.
+
+> **macOS Sleep Limitation:** When your Mac is asleep at a scheduled prayer time, user-space apps cannot wake the system to play Adhan audio (waking a sleeping Mac requires root-level power scheduling). Upon wake, Owghat skips late audio playback beyond a 90-second grace window and posts a quiet missed-prayer notification if notifications are enabled. If the app was quit, pending system notifications up to 48 hours ahead still alert via macOS Notification Center.
 
 ## Calculation Method Notes
 
@@ -101,6 +103,7 @@ MIT License — see [LICENSE](LICENSE).
 - **ویرایش کامل اوقات:** اعمال اختلاف دقیقه‌ای برای هر وقت و تغییر دستی هر زمان در هر تاریخ دلخواه.
 - **نوار منو و شمارش معکوس زنده:** نمایش نام و زمان یا شمارش معکوس با اعداد فارسی یا لاتین، تاریخ‌های هجری شمسی، هجری قمری و میلادی، و مناسبت‌های روز.
 - **پخش اذان و هشدارها:** پخش صوتی با کنترل صدا و fade-in، هشدار پیش از اذان، دعای پس از اذان، اعلان سیستم (Stop/Snooze)، پشتیبانی از خواب و بیداری سیستم و تغییر منطقه زمانی، و اجرای خودکار هنگام ورود به سیستم.
-- **افزودن فایل صوتی دلخواه:** این پروژه هیچ فایل اذان دارای حق نشر را همراه خود ندارد و فقط یک زنگ آزمایشی رایگان ارائه می‌دهد؛ می‌توانید فایل‌های صوتی دلخواه خود را از بخش تنظیمات وارد کنید تا در پوشه Application Support ذخیره شوند.
+- **افزودن فایل صوتی دلخواه:** این پروژه هیچ فایل اذان دارای حق نشر را همراه خود ندارد و فقط یک زنگ آزمایشی رایگان ارائه می‌دهد؛ می‌توانید فایل‌های صوتی دلخواه خود (تا ۱۵ دقیقه) را از بخش تنظیمات وارد کنید تا پس از اعتبارسنجی در پوشه Application Support ذخیره شوند.
+- **محدودیت حالت خواب مک (Sleep):** در زمان خواب بودن سیستم، اپلیکیشن‌ها بدون دسترسی ریشه (root) امکان بیدار کردن مک برای پخش صوتی اذان را ندارند؛ پس از بیدار شدن سیستم، اگر بیش از ۹۰ ثانیه از وقت اذان گذشته باشد صوت با تأخیر پخش نمی‌شود و در صورت فعال بودن اعلان‌ها یک اعلان بی‌صدا بابت وقت سپری‌شده نمایش داده می‌شود.
 
 </div>

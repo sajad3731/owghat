@@ -25,12 +25,12 @@ This document tracks the development milestones for Owghat (اوقات), a nativ
 - [x] Add quick actions in panel (mute today, stop playing Adhan, refresh online comparison, open settings)
 
 ## M3 — Adhan Scheduler + Audio + Notifications + Launch at Login
-- [ ] Harden timer arming and re-arming across `NSWorkspace.didWakeNotification`, time zone changes, and day rollover
-- [ ] Complete `AVAudioPlayer` fade-in, per-prayer audio routing, and post-Adhan Doa sequencing
-- [ ] Add pre-Adhan reminder scheduling (N minutes before)
-- [ ] Wire `UNUserNotificationCenter` backup alerts with Stop and Snooze actions
-- [ ] Complete custom audio file import/management in Application Support
-- [ ] Finalize `SMAppService.mainApp` launch-at-login and Dock icon toggle (`LSUIElement`)
+- [x] Harden timer arming and re-arming across `NSWorkspace.didWakeNotification`, time zone changes, and day rollover
+- [x] Complete `AVAudioPlayer` fade-in, per-prayer audio routing, and post-Adhan Doa sequencing
+- [x] Add pre-Adhan reminder scheduling (N minutes before)
+- [x] Wire `UNUserNotificationCenter` backup alerts with Stop and Snooze actions
+- [x] Complete custom audio file import/management in Application Support
+- [x] Finalize `SMAppService.mainApp` launch-at-login and Dock icon toggle (`LSUIElement`)
 
 ## M4 — Widgets
 - [ ] Refine Small, Medium, and Large WidgetKit layouts for Desktop and Notification Center
