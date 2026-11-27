@@ -1,0 +1,728 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		051F83E689C21EC3D5DE4543 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107CA36A90BC08E69F167D6A /* AppearanceSettingsView.swift */; };
+		08819059580B2DD7D4BB6911 /* AdhanAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B739E6440A7267F53D43D42 /* AdhanAudioPlayer.swift */; };
+		27A1C37A1ACD4F6093949CF9 /* OwghatWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 93A024EF798110927F032C17 /* OwghatWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3F180A649581D3F892D19030 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C9BCC43596DE68F6B93748 /* SettingsView.swift */; };
+		531EFA27337B8C63BCF860A6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 61B6D9AFDB568BADD3DB738B /* Localizable.xcstrings */; };
+		5E80943D478AEECC9721F19B /* OwghatWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908DE7691B5CF85F596527DC /* OwghatWidgetBundle.swift */; };
+		71912FAD1FFDA3DF18B5FE0E /* PrayerWidgetConfigurationIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF9EB57E999642B95498DA /* PrayerWidgetConfigurationIntent.swift */; };
+		7C4DB15AAFC77D91C9D82E67 /* MenuBarLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E195A2108CBB4C5BF8AC690D /* MenuBarLabelView.swift */; };
+		82577C6C866017C011A81D23 /* OwghatCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1A6C41FEC6AA4FE2589DED0D /* OwghatCore */; };
+		8585F03142D46B29D26BD875 /* PrayerCalculationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F5D74A40740C60AF9AA747 /* PrayerCalculationSettingsView.swift */; };
+		920D3DF7505DE778CE36A000 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97359A6447400DC2A19541 /* GeneralSettingsView.swift */; };
+		9677942A2D951E792D85CA77 /* gentle-chime.wav in Resources */ = {isa = PBXBuildFile; fileRef = D3020E9D70566EAA1CE0D186 /* gentle-chime.wav */; };
+		98122AB4F306DC840863C11B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95CAB27EB07482C3C8080179 /* Assets.xcassets */; };
+		9AEC3066CF09409EB44CA76C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9568F7CF4D9EF77B4B0E263 /* AppState.swift */; };
+		9E6F6C67BDCE15537BEC6129 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F689053F609B5722C56744 /* LocationManager.swift */; };
+		9F0837F9A742BD99681DD5CF /* OwghatWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9231DFBB6D98C020F53EA /* OwghatWidget.swift */; };
+		AC25599DE6BA8361F94C7C24 /* OwghatSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DC5B73A7DB76F8E8C3953 /* OwghatSmokeTests.swift */; };
+		B2C763CFDE242B52EF29738B /* AdhanScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99CC98AAD6FB1D4113BEAA1 /* AdhanScheduler.swift */; };
+		BBBD311D60C746F105B31476 /* MenuBarPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45214E79DB36B4173C3728F8 /* MenuBarPanelView.swift */; };
+		C1E13F09764589C330D084BA /* OwghatCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4DF2040662DDA774A01E24EE /* OwghatCore */; };
+		D841D41E0BB7A68A3C2C7D53 /* OwghatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */; };
+		D96EF31D8B6123747EAEEA57 /* OwghatCore in Frameworks */ = {isa = PBXBuildFile; productRef = 818F63A8E3C114CD54B8B92B /* OwghatCore */; };
+		DB34B7BB5F7423F806DD9994 /* EventsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F9E022272227611A10CA8 /* EventsSettingsView.swift */; };
+		E7889E23591C8296FDA29C61 /* AdhanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215D8222ED9D36CD8FC408C7 /* AdhanSettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		64C576AF27F401B6F7F6E6D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED709C59FDF51673F7D81128 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EDBF0B05055ACC5F1491A2C7;
+			remoteInfo = OwghatWidget;
+		};
+		9405508AF7C20CE0B39392ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED709C59FDF51673F7D81128 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1E3386422DA159E6F75206E;
+			remoteInfo = Owghat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C01AFBBC11EB01B899139B47 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				27A1C37A1ACD4F6093949CF9 /* OwghatWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		107CA36A90BC08E69F167D6A /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
+		215D8222ED9D36CD8FC408C7 /* AdhanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhanSettingsView.swift; sourceTree = "<group>"; };
+		26F689053F609B5722C56744 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatApp.swift; sourceTree = "<group>"; };
+		45214E79DB36B4173C3728F8 /* MenuBarPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPanelView.swift; sourceTree = "<group>"; };
+		61B6D9AFDB568BADD3DB738B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		633F9E022272227611A10CA8 /* EventsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsSettingsView.swift; sourceTree = "<group>"; };
+		793DC5B73A7DB76F8E8C3953 /* OwghatSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatSmokeTests.swift; sourceTree = "<group>"; };
+		8D97359A6447400DC2A19541 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		908DE7691B5CF85F596527DC /* OwghatWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatWidgetBundle.swift; sourceTree = "<group>"; };
+		93A024EF798110927F032C17 /* OwghatWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwghatWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		95CAB27EB07482C3C8080179 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9B739E6440A7267F53D43D42 /* AdhanAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhanAudioPlayer.swift; sourceTree = "<group>"; };
+		9FEF9EB57E999642B95498DA /* PrayerWidgetConfigurationIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerWidgetConfigurationIntent.swift; sourceTree = "<group>"; };
+		AFD9231DFBB6D98C020F53EA /* OwghatWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatWidget.swift; sourceTree = "<group>"; };
+		B99CC98AAD6FB1D4113BEAA1 /* AdhanScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhanScheduler.swift; sourceTree = "<group>"; };
+		C9568F7CF4D9EF77B4B0E263 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		CB6B3B0E5CE41FD05339C983 /* OwghatCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OwghatCore; path = Packages/OwghatCore; sourceTree = SOURCE_ROOT; };
+		D1225430481B3658E37148A7 /* Owghat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Owghat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3020E9D70566EAA1CE0D186 /* gentle-chime.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "gentle-chime.wav"; sourceTree = "<group>"; };
+		E195A2108CBB4C5BF8AC690D /* MenuBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabelView.swift; sourceTree = "<group>"; };
+		ED7B2E275A32EA6F06476B1F /* OwghatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwghatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C9BCC43596DE68F6B93748 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F8F5D74A40740C60AF9AA747 /* PrayerCalculationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerCalculationSettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B583FBD001A3592B219CB52 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1E13F09764589C330D084BA /* OwghatCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DF84C4A61DC29E5802DB4BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82577C6C866017C011A81D23 /* OwghatCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9924A6183030D7F283399FE6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D96EF31D8B6123747EAEEA57 /* OwghatCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		066A61923F370F4B31254E15 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				95CAB27EB07482C3C8080179 /* Assets.xcassets */,
+				61B6D9AFDB568BADD3DB738B /* Localizable.xcstrings */,
+				8C432BD06EC92EB8C70FED22 /* Audio */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		100D7E972E5B7A45738A551E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1225430481B3658E37148A7 /* Owghat.app */,
+				ED7B2E275A32EA6F06476B1F /* OwghatTests.xctest */,
+				93A024EF798110927F032C17 /* OwghatWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		131E5446E104D6FEBE98A889 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C9568F7CF4D9EF77B4B0E263 /* AppState.swift */,
+				3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		24CEAD732BBB25EBFAA870BD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				215D8222ED9D36CD8FC408C7 /* AdhanSettingsView.swift */,
+				107CA36A90BC08E69F167D6A /* AppearanceSettingsView.swift */,
+				633F9E022272227611A10CA8 /* EventsSettingsView.swift */,
+				8D97359A6447400DC2A19541 /* GeneralSettingsView.swift */,
+				F8F5D74A40740C60AF9AA747 /* PrayerCalculationSettingsView.swift */,
+				F2C9BCC43596DE68F6B93748 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4350D26E913F3BFBA3485BA2 /* Owghat */ = {
+			isa = PBXGroup;
+			children = (
+				BB8B4C733E9890B07EDE25DC /* Adhan */,
+				131E5446E104D6FEBE98A889 /* App */,
+				76D9C04098022AE0C3C010C3 /* Location */,
+				5C4F20609CCBFA2201002F96 /* MenuBar */,
+				066A61923F370F4B31254E15 /* Resources */,
+				24CEAD732BBB25EBFAA870BD /* Settings */,
+			);
+			path = Owghat;
+			sourceTree = "<group>";
+		};
+		5C4F20609CCBFA2201002F96 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				E195A2108CBB4C5BF8AC690D /* MenuBarLabelView.swift */,
+				45214E79DB36B4173C3728F8 /* MenuBarPanelView.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		661E9129343B3642DA431FA3 /* OwghatWidget */ = {
+			isa = PBXGroup;
+			children = (
+				AFD9231DFBB6D98C020F53EA /* OwghatWidget.swift */,
+				908DE7691B5CF85F596527DC /* OwghatWidgetBundle.swift */,
+				9FEF9EB57E999642B95498DA /* PrayerWidgetConfigurationIntent.swift */,
+			);
+			path = OwghatWidget;
+			sourceTree = "<group>";
+		};
+		76D9C04098022AE0C3C010C3 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				26F689053F609B5722C56744 /* LocationManager.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		78ABAF2C05DE1DDA7240CBFC /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				CB6B3B0E5CE41FD05339C983 /* OwghatCore */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		8C432BD06EC92EB8C70FED22 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				D3020E9D70566EAA1CE0D186 /* gentle-chime.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		BB8B4C733E9890B07EDE25DC /* Adhan */ = {
+			isa = PBXGroup;
+			children = (
+				9B739E6440A7267F53D43D42 /* AdhanAudioPlayer.swift */,
+				B99CC98AAD6FB1D4113BEAA1 /* AdhanScheduler.swift */,
+			);
+			path = Adhan;
+			sourceTree = "<group>";
+		};
+		C8D2DDF009959DC765373560 = {
+			isa = PBXGroup;
+			children = (
+				4350D26E913F3BFBA3485BA2 /* Owghat */,
+				FA02508E352D7AE8ACA688DD /* OwghatTests */,
+				661E9129343B3642DA431FA3 /* OwghatWidget */,
+				78ABAF2C05DE1DDA7240CBFC /* Packages */,
+				100D7E972E5B7A45738A551E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA02508E352D7AE8ACA688DD /* OwghatTests */ = {
+			isa = PBXGroup;
+			children = (
+				793DC5B73A7DB76F8E8C3953 /* OwghatSmokeTests.swift */,
+			);
+			path = OwghatTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B1E3386422DA159E6F75206E /* Owghat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5566D7B82E69B7BE38A12B67 /* Build configuration list for PBXNativeTarget "Owghat" */;
+			buildPhases = (
+				CD558EA4277E87CEE6F2D74D /* Sources */,
+				4FA792790A6CF2E037FF3B0A /* Resources */,
+				8DF84C4A61DC29E5802DB4BC /* Frameworks */,
+				C01AFBBC11EB01B899139B47 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BDB319C975FC152526ECDC70 /* PBXTargetDependency */,
+			);
+			name = Owghat;
+			packageProductDependencies = (
+				1A6C41FEC6AA4FE2589DED0D /* OwghatCore */,
+			);
+			productName = Owghat;
+			productReference = D1225430481B3658E37148A7 /* Owghat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D998163230CB2DE2FC48595A /* OwghatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB2246F74464DEEE58060DBD /* Build configuration list for PBXNativeTarget "OwghatTests" */;
+			buildPhases = (
+				B0CF4E0AC7122189D5AFA737 /* Sources */,
+				6B583FBD001A3592B219CB52 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				605BFF6E00D2C9D1DAF216B0 /* PBXTargetDependency */,
+			);
+			name = OwghatTests;
+			packageProductDependencies = (
+				4DF2040662DDA774A01E24EE /* OwghatCore */,
+			);
+			productName = OwghatTests;
+			productReference = ED7B2E275A32EA6F06476B1F /* OwghatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EDBF0B05055ACC5F1491A2C7 /* OwghatWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 667E7FC5F7E883D10210C838 /* Build configuration list for PBXNativeTarget "OwghatWidget" */;
+			buildPhases = (
+				81ACE3A1817D373FFBA6E801 /* Sources */,
+				9924A6183030D7F283399FE6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OwghatWidget;
+			packageProductDependencies = (
+				818F63A8E3C114CD54B8B92B /* OwghatCore */,
+			);
+			productName = OwghatWidget;
+			productReference = 93A024EF798110927F032C17 /* OwghatWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ED709C59FDF51673F7D81128 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B1E3386422DA159E6F75206E = {
+						DevelopmentTeam = "";
+					};
+					D998163230CB2DE2FC48595A = {
+						DevelopmentTeam = "";
+					};
+					EDBF0B05055ACC5F1491A2C7 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 2A19905D4F182C01FA3BF975 /* Build configuration list for PBXProject "Owghat" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				fa,
+			);
+			mainGroup = C8D2DDF009959DC765373560;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				82DB05595C96B462D18F2121 /* XCLocalSwiftPackageReference "Packages/OwghatCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 100D7E972E5B7A45738A551E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B1E3386422DA159E6F75206E /* Owghat */,
+				EDBF0B05055ACC5F1491A2C7 /* OwghatWidget */,
+				D998163230CB2DE2FC48595A /* OwghatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4FA792790A6CF2E037FF3B0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98122AB4F306DC840863C11B /* Assets.xcassets in Resources */,
+				531EFA27337B8C63BCF860A6 /* Localizable.xcstrings in Resources */,
+				9677942A2D951E792D85CA77 /* gentle-chime.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		81ACE3A1817D373FFBA6E801 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F0837F9A742BD99681DD5CF /* OwghatWidget.swift in Sources */,
+				5E80943D478AEECC9721F19B /* OwghatWidgetBundle.swift in Sources */,
+				71912FAD1FFDA3DF18B5FE0E /* PrayerWidgetConfigurationIntent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0CF4E0AC7122189D5AFA737 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC25599DE6BA8361F94C7C24 /* OwghatSmokeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD558EA4277E87CEE6F2D74D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08819059580B2DD7D4BB6911 /* AdhanAudioPlayer.swift in Sources */,
+				B2C763CFDE242B52EF29738B /* AdhanScheduler.swift in Sources */,
+				E7889E23591C8296FDA29C61 /* AdhanSettingsView.swift in Sources */,
+				9AEC3066CF09409EB44CA76C /* AppState.swift in Sources */,
+				051F83E689C21EC3D5DE4543 /* AppearanceSettingsView.swift in Sources */,
+				DB34B7BB5F7423F806DD9994 /* EventsSettingsView.swift in Sources */,
+				920D3DF7505DE778CE36A000 /* GeneralSettingsView.swift in Sources */,
+				9E6F6C67BDCE15537BEC6129 /* LocationManager.swift in Sources */,
+				7C4DB15AAFC77D91C9D82E67 /* MenuBarLabelView.swift in Sources */,
+				BBBD311D60C746F105B31476 /* MenuBarPanelView.swift in Sources */,
+				D841D41E0BB7A68A3C2C7D53 /* OwghatApp.swift in Sources */,
+				8585F03142D46B29D26BD875 /* PrayerCalculationSettingsView.swift in Sources */,
+				3F180A649581D3F892D19030 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		605BFF6E00D2C9D1DAF216B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1E3386422DA159E6F75206E /* Owghat */;
+			targetProxy = 9405508AF7C20CE0B39392ED /* PBXContainerItemProxy */;
+		};
+		BDB319C975FC152526ECDC70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EDBF0B05055ACC5F1491A2C7 /* OwghatWidget */;
+			targetProxy = 64C576AF27F401B6F7F6E6D5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		10AC51AD384A2A3B99FE5964 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = OwghatWidget/Resources/OwghatWidget.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = OwghatWidget/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.owghat.widget;
+				PRODUCT_NAME = OwghatWidget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		757A97AAF82C5D5B86764D70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Owghat/Resources/Owghat.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Owghat/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.owghat;
+				PRODUCT_NAME = Owghat;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7C2A80492B342B109FDDD2D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = OwghatWidget/Resources/OwghatWidget.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = OwghatWidget/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.owghat.widget;
+				PRODUCT_NAME = OwghatWidget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A2A7854D8D1267C13CAF6A3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.owghat.tests;
+				PRODUCT_NAME = OwghatTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Owghat.app/Contents/MacOS/Owghat";
+			};
+			name = Debug;
+		};
+		D367CB64D570524BB1AE5914 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Owghat/Resources/Owghat.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Owghat/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.owghat;
+				PRODUCT_NAME = Owghat;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D82018DB1D8F69EEDD913B1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.owghat.tests;
+				PRODUCT_NAME = OwghatTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Owghat.app/Contents/MacOS/Owghat";
+			};
+			name = Release;
+		};
+		E75A8C5FC251B66B22234528 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		FDABF5A17BDBF9D6BD9A9B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2A19905D4F182C01FA3BF975 /* Build configuration list for PBXProject "Owghat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDABF5A17BDBF9D6BD9A9B11 /* Debug */,
+				E75A8C5FC251B66B22234528 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5566D7B82E69B7BE38A12B67 /* Build configuration list for PBXNativeTarget "Owghat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D367CB64D570524BB1AE5914 /* Debug */,
+				757A97AAF82C5D5B86764D70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		667E7FC5F7E883D10210C838 /* Build configuration list for PBXNativeTarget "OwghatWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10AC51AD384A2A3B99FE5964 /* Debug */,
+				7C2A80492B342B109FDDD2D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DB2246F74464DEEE58060DBD /* Build configuration list for PBXNativeTarget "OwghatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2A7854D8D1267C13CAF6A3B /* Debug */,
+				D82018DB1D8F69EEDD913B1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		82DB05595C96B462D18F2121 /* XCLocalSwiftPackageReference "Packages/OwghatCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/OwghatCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A6C41FEC6AA4FE2589DED0D /* OwghatCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OwghatCore;
+		};
+		4DF2040662DDA774A01E24EE /* OwghatCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OwghatCore;
+		};
+		818F63A8E3C114CD54B8B92B /* OwghatCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OwghatCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = ED709C59FDF51673F7D81128 /* Project object */;
+}

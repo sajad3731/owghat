@@ -1,0 +1,105 @@
+name: Owghat
+
+options:
+  # TODO: Update bundleIdPrefix and DEVELOPMENT_TEAM for your Apple Developer account.
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+
+packages:
+  OwghatCore:
+    path: Packages/OwghatCore
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    # TODO: Set DEVELOPMENT_TEAM to your Apple Developer Team ID before signing builds.
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  Owghat:
+    type: application
+    platform: macOS
+    sources:
+      - path: Owghat
+        excludes:
+          - Resources/Info.plist
+          - Resources/Owghat.entitlements
+    settings:
+      base:
+        PRODUCT_NAME: Owghat
+        # TODO: Update com.example to match your bundleIdPrefix.
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.owghat
+        INFOPLIST_FILE: Owghat/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Owghat/Resources/Owghat.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/../Frameworks"
+    dependencies:
+      - package: OwghatCore
+      - target: OwghatWidget
+        embed: true
+
+  OwghatWidget:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: OwghatWidget
+        excludes:
+          - Resources/Info.plist
+          - Resources/OwghatWidget.entitlements
+    settings:
+      base:
+        PRODUCT_NAME: OwghatWidget
+        # TODO: Update com.example to match your bundleIdPrefix.
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.owghat.widget
+        INFOPLIST_FILE: OwghatWidget/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: OwghatWidget/Resources/OwghatWidget.entitlements
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SKIP_INSTALL: YES
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/../Frameworks"
+          - "@executable_path/../../../../Frameworks"
+    dependencies:
+      - package: OwghatCore
+
+  OwghatTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: OwghatTests
+    settings:
+      base:
+        PRODUCT_NAME: OwghatTests
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.owghat.tests
+    dependencies:
+      - target: Owghat
+      - package: OwghatCore
+
+schemes:
+  Owghat:
+    build:
+      targets:
+        Owghat: all
+        OwghatWidget: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - OwghatTests
+    profile:
+      config: Release
+    archive:
+      config: Release
