@@ -9,9 +9,10 @@ struct OwghatApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            MenuBarPanelView(appState: appState)
+            MenuBarPanelView(appState: appState, showsOpenWindowButton: true)
                 .environment(\.layoutDirection, appState.settings.language.isRTL ? .rightToLeft : .leftToRight)
                 .preferredColorScheme(preferredColorScheme)
+                .tint(appState.accentColor)
         } label: {
             MenuBarLabelView(appState: appState)
         }
@@ -27,8 +28,9 @@ struct OwghatApp: App {
             MainOverviewView(appState: appState)
                 .environment(\.layoutDirection, appState.settings.language.isRTL ? .rightToLeft : .leftToRight)
                 .preferredColorScheme(preferredColorScheme)
+                .tint(appState.accentColor)
         }
-        .defaultSize(width: 440, height: 560)
+        .defaultSize(width: 400, height: 560)
     }
 
     private var appTitle: String {
@@ -58,8 +60,8 @@ struct MainOverviewView: View {
     let appState: AppState
 
     var body: some View {
-        MenuBarPanelView(appState: appState)
-            .frame(minWidth: 380, minHeight: 500)
+        MenuBarPanelView(appState: appState, showsOpenWindowButton: false)
+            .frame(minWidth: 360, minHeight: 500)
             .padding()
     }
 }

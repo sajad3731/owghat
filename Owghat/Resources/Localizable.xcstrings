@@ -7,28 +7,46 @@
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات" } }
       }
     },
+    "menubar.dismiss_warning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dismiss warning" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "بستن هشدار" } }
+      }
+    },
+    "menubar.location_settings_hint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open location and calculation settings" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "باز کردن تنظیمات مکان و روش محاسبه" } }
+      }
+    },
+    "menubar.manual_override" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Manually overridden" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "تغییر دستی" } }
+      }
+    },
     "menubar.mute_today" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Mute Adhan Today" } },
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "بی‌صدا کردن اذان امروز" } }
       }
     },
-    "menubar.stop_adhan" : {
+    "menubar.muted_today" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stop Audio" } },
-        "fa" : { "stringUnit" : { "state" : "translated", "value" : "توقف پخش" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Muted Today" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "امروز بی‌صداست" } }
       }
     },
-    "menubar.open_settings" : {
+    "menubar.next_prayer_label" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings…" } },
-        "fa" : { "stringUnit" : { "state" : "translated", "value" : "تنظیمات…" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next prayer" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وقت بعدی" } }
       }
     },
-    "menubar.quit" : {
+    "menubar.no_prayers" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quit" } },
-        "fa" : { "stringUnit" : { "state" : "translated", "value" : "خروج" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No prayers visible" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وقتی برای نمایش انتخاب نشده است" } }
       }
     },
     "menubar.occasions" : {
@@ -37,16 +55,46 @@
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "مناسبت‌های امروز" } }
       }
     },
-    "settings.tab.general" : {
+    "menubar.open_settings" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "General" } },
-        "fa" : { "stringUnit" : { "state" : "translated", "value" : "عمومی" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings…" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "تنظیمات…" } }
       }
     },
-    "settings.tab.calculation" : {
+    "menubar.open_window" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Times & Location" } },
-        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات و مکان" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Owghat Window" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "پنجره اوقات" } }
+      }
+    },
+    "menubar.quit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quit" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "خروج" } }
+      }
+    },
+    "menubar.refresh" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Refresh" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "به‌روزرسانی" } }
+      }
+    },
+    "menubar.stop_adhan" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stop Audio" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "توقف پخش" } }
+      }
+    },
+    "menubar.tomorrow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tomorrow" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "فردا" } }
+      }
+    },
+    "menubar.upcoming_occasion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upcoming Occasion" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "مناسبت پیشِ رو" } }
       }
     },
     "settings.tab.adhan" : {
@@ -61,22 +109,34 @@
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "ظاهر و تقویم" } }
       }
     },
+    "settings.tab.calculation" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Times & Location" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات و مکان" } }
+      }
+    },
     "settings.tab.events" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Events" } },
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "رویدادها" } }
       }
     },
-    "widget.title" : {
+    "settings.tab.general" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prayer Times" } },
-        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات شرعی" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "General" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "عمومی" } }
       }
     },
     "widget.description" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "View upcoming prayer times, dates, and occasions." } },
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "نمایش اوقات شرعی، تاریخ‌های روز و مناسبت‌ها." } }
+      }
+    },
+    "widget.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prayer Times" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات شرعی" } }
       }
     }
   },
