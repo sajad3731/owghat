@@ -13,8 +13,8 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     }
 
     private let audioPlayer: AdhanAudioPlayer
-    private var armedTimer: Timer?
-    private var reminderTimer: Timer?
+    private var armedTask: Task<Void, Never>?
+    private var reminderTask: Task<Void, Never>?
     private var systemObservers: [NSObjectProtocol] = []
     var onScheduleNeedsRefresh: (() -> Void)?
 
@@ -26,8 +26,8 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
     }
 
     deinit {
-        armedTimer?.invalidate()
-        reminderTimer?.invalidate()
+        armedTask?.cancel()
+        reminderTask?.cancel()
     }
 
     func requestNotificationPermission() async {
@@ -43,10 +43,10 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         settings: AppSettings,
         timeZone: TimeZone
     ) {
-        armedTimer?.invalidate()
-        reminderTimer?.invalidate()
-        armedTimer = nil
-        reminderTimer = nil
+        armedTask?.cancel()
+        reminderTask?.cancel()
+        armedTask = nil
+        reminderTask = nil
 
         guard let nextResolution else { return }
         let now = Date()
@@ -58,35 +58,35 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         let isMuted = settings.adhan.isMuted(on: entry.date, timeZone: timeZone)
 
         if !isMuted && choice != .none {
-            let timer = Timer(fire: entry.date, interval: 0, repeats: false) { [weak self] _ in
-                Task { @MainActor [weak self] in
-                    guard let self else { return }
-                    self.audioPlayer.play(
-                        choice: choice,
-                        postAdhanDoa: settings.adhan.postAdhanDoaClip,
-                        settings: settings.adhan
-                    )
-                    self.onScheduleNeedsRefresh?()
-                }
+            let doaChoice = settings.adhan.postAdhanDoaClip
+            let adhanSettings = settings.adhan
+            armedTask = Task { [weak self] in
+                try? await Task.sleep(for: .seconds(interval))
+                guard !Task.isCancelled, let self else { return }
+                self.audioPlayer.play(
+                    choice: choice,
+                    postAdhanDoa: doaChoice,
+                    settings: adhanSettings
+                )
+                self.onScheduleNeedsRefresh?()
             }
-            RunLoop.main.add(timer, forMode: .common)
-            armedTimer = timer
         }
 
         if let reminderMinutes = settings.adhan.preAdhanReminderMinutes, reminderMinutes > 0 {
             let reminderDate = entry.date.addingTimeInterval(TimeInterval(-reminderMinutes * 60))
-            if reminderDate > now {
-                let rTimer = Timer(fire: reminderDate, interval: 0, repeats: false) { [weak self] _ in
-                    Task { @MainActor [weak self] in
-                        self?.deliverImmediateReminderNotification(
-                            prayer: entry.prayer,
-                            minutesBefore: reminderMinutes,
-                            language: settings.language
-                        )
-                    }
+            let reminderInterval = reminderDate.timeIntervalSince(now)
+            if reminderInterval > 0 {
+                let prayer = entry.prayer
+                let language = settings.language
+                reminderTask = Task { [weak self] in
+                    try? await Task.sleep(for: .seconds(reminderInterval))
+                    guard !Task.isCancelled, let self else { return }
+                    self.deliverImmediateReminderNotification(
+                        prayer: prayer,
+                        minutesBefore: reminderMinutes,
+                        language: language
+                    )
                 }
-                RunLoop.main.add(rTimer, forMode: .common)
-                reminderTimer = rTimer
             }
         }
 
@@ -214,21 +214,28 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse
     ) async {
         let actionID = response.actionIdentifier
+        let originalTitle = response.notification.request.content.title
+        let originalBody = response.notification.request.content.body
+
         await MainActor.run {
-            if actionID == Constants.stopActionID {
+            if actionID == Constants.stopActionID || actionID == Constants.snoozeActionID {
                 audioPlayer.stop()
-            } else if actionID == Constants.snoozeActionID {
-                audioPlayer.stop()
-                let snoozeContent = response.notification.request.content.mutableCopy() as? UNMutableNotificationContent
-                    ?? UNMutableNotificationContent()
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 300, repeats: false)
-                let request = UNNotificationRequest(
-                    identifier: "owghat-snooze-\(UUID().uuidString)",
-                    content: snoozeContent,
-                    trigger: trigger
-                )
-                center.add(request)
             }
+        }
+
+        if actionID == Constants.snoozeActionID {
+            let snoozeContent = UNMutableNotificationContent()
+            snoozeContent.title = originalTitle
+            snoozeContent.body = originalBody
+            snoozeContent.sound = .default
+            snoozeContent.categoryIdentifier = Constants.categoryID
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 300, repeats: false)
+            let request = UNNotificationRequest(
+                identifier: "owghat-snooze-\(UUID().uuidString)",
+                content: snoozeContent,
+                trigger: trigger
+            )
+            center.add(request, withCompletionHandler: nil)
         }
     }
 }
