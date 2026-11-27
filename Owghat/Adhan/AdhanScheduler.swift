@@ -113,7 +113,7 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
         }
 
         notificationSyncTask = Task { [weak self] in
-            await self?.applyNotificationPlan(events: events, settings: settings, timeZone: timeZone)
+            await self?.applyNotificationPlan(events: events, settings: settings)
         }
     }
 
@@ -180,7 +180,10 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
 
         case .notifyMissed:
             let pendingID = NotificationPlan.requestIdentifier(for: event)
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [pendingID])
+            let center = UNUserNotificationCenter.current()
+            center.removePendingNotificationRequests(withIdentifiers: [pendingID])
+            // macOS delivers the passed alert late at wake; drop it so only the missed notice shows.
+            center.removeDeliveredNotifications(withIdentifiers: [pendingID])
             deliverMissedNotification(
                 event: event,
                 language: settings.language,
@@ -199,8 +202,7 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
 
     private func applyNotificationPlan(
         events: [AdhanEvent],
-        settings: AppSettings,
-        timeZone: TimeZone
+        settings: AppSettings
     ) async {
         let pendingSnapshots = await fetchPendingNotificationSnapshots()
         guard !Task.isCancelled else { return }
@@ -217,19 +219,14 @@ final class AdhanScheduler: NSObject, UNUserNotificationCenterDelegate {
             center.removePendingNotificationRequests(withIdentifiers: plan.toRemove)
         }
 
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = timeZone
-
         for planned in plan.toAdd {
             let content = buildNotificationContent(
                 for: planned.event,
                 language: settings.language,
                 persianDigits: settings.usePersianDigits
             )
-            let components = calendar.dateComponents(
-                [.year, .month, .day, .hour, .minute, .second],
-                from: planned.fireDate
-            )
+            // Built in the system zone: the trigger does not know the location's zone.
+            let components = NotificationPlan.triggerComponents(for: planned.fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             let request = UNNotificationRequest(
                 identifier: planned.id,

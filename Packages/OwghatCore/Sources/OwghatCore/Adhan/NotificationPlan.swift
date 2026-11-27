@@ -51,6 +51,28 @@ public struct NotificationPlan: Sendable, Equatable {
         self.toRemove = toRemove
     }
 
+    /// Date components for a `UNCalendarNotificationTrigger` firing at the absolute instant `fireDate`.
+    ///
+    /// The trigger reads its components in the system calendar and time zone, not in the selected
+    /// location's zone, so the components are built in the system zone (Gregorian) and carry that
+    /// calendar and zone explicitly. A system time zone change re-arms all notifications.
+    /// Known limit of calendar triggers: an instant inside the repeated hour of a DST fall-back
+    /// in the system zone may resolve to the first occurrence (one hour early).
+    public static func triggerComponents(
+        for fireDate: Date,
+        systemTimeZone: TimeZone = .autoupdatingCurrent
+    ) -> DateComponents {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = systemTimeZone
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second],
+            from: fireDate
+        )
+        components.calendar = calendar
+        components.timeZone = systemTimeZone
+        return components
+    }
+
     public static func requestIdentifier(for event: AdhanEvent) -> String {
         "\(managedPrefix)\(event.id)"
     }
