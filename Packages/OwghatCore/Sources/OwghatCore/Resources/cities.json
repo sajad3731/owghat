@@ -1,0 +1,382 @@
+[
+  {
+    "id": "ir-tehran",
+    "name": "Tehran",
+    "persianName": "تهران",
+    "countryCode": "IR",
+    "latitude": 35.6892,
+    "longitude": 51.3890,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-mashhad",
+    "name": "Mashhad",
+    "persianName": "مشهد",
+    "countryCode": "IR",
+    "latitude": 36.2605,
+    "longitude": 59.6168,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-isfahan",
+    "name": "Isfahan",
+    "persianName": "اصفهان",
+    "countryCode": "IR",
+    "latitude": 32.6539,
+    "longitude": 51.6660,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-shiraz",
+    "name": "Shiraz",
+    "persianName": "شیراز",
+    "countryCode": "IR",
+    "latitude": 29.5926,
+    "longitude": 52.5836,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-tabriz",
+    "name": "Tabriz",
+    "persianName": "تبریز",
+    "countryCode": "IR",
+    "latitude": 38.0962,
+    "longitude": 46.2738,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-qom",
+    "name": "Qom",
+    "persianName": "قم",
+    "countryCode": "IR",
+    "latitude": 34.6416,
+    "longitude": 50.8746,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-karaj",
+    "name": "Karaj",
+    "persianName": "کرج",
+    "countryCode": "IR",
+    "latitude": 35.8400,
+    "longitude": 50.9391,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-ahvaz",
+    "name": "Ahvaz",
+    "persianName": "اهواز",
+    "countryCode": "IR",
+    "latitude": 31.3183,
+    "longitude": 48.6706,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-kermanshah",
+    "name": "Kermanshah",
+    "persianName": "کرمانشاه",
+    "countryCode": "IR",
+    "latitude": 34.3142,
+    "longitude": 47.0650,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-urmia",
+    "name": "Urmia",
+    "persianName": "ارومیه",
+    "countryCode": "IR",
+    "latitude": 37.5527,
+    "longitude": 45.0761,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-rasht",
+    "name": "Rasht",
+    "persianName": "رشت",
+    "countryCode": "IR",
+    "latitude": 37.2808,
+    "longitude": 49.5832,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-zahedan",
+    "name": "Zahedan",
+    "persianName": "زاهدان",
+    "countryCode": "IR",
+    "latitude": 29.4963,
+    "longitude": 60.8629,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-hamedan",
+    "name": "Hamedan",
+    "persianName": "همدان",
+    "countryCode": "IR",
+    "latitude": 34.7990,
+    "longitude": 48.5150,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-kerman",
+    "name": "Kerman",
+    "persianName": "کرمان",
+    "countryCode": "IR",
+    "latitude": 30.2839,
+    "longitude": 57.0834,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-yazd",
+    "name": "Yazd",
+    "persianName": "یزد",
+    "countryCode": "IR",
+    "latitude": 31.8974,
+    "longitude": 54.3569,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-ardabil",
+    "name": "Ardabil",
+    "persianName": "اردبیل",
+    "countryCode": "IR",
+    "latitude": 38.2498,
+    "longitude": 48.2933,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-bandar-abbas",
+    "name": "Bandar Abbas",
+    "persianName": "بندرعباس",
+    "countryCode": "IR",
+    "latitude": 27.1832,
+    "longitude": 56.2666,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-arak",
+    "name": "Arak",
+    "persianName": "اراک",
+    "countryCode": "IR",
+    "latitude": 34.0954,
+    "longitude": 49.7013,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-sanandaj",
+    "name": "Sanandaj",
+    "persianName": "سنندج",
+    "countryCode": "IR",
+    "latitude": 35.3219,
+    "longitude": 46.9862,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-zanjan",
+    "name": "Zanjan",
+    "persianName": "زنجان",
+    "countryCode": "IR",
+    "latitude": 36.6736,
+    "longitude": 48.4787,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-qazvin",
+    "name": "Qazvin",
+    "persianName": "قزوین",
+    "countryCode": "IR",
+    "latitude": 36.2688,
+    "longitude": 50.0041,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-gorgan",
+    "name": "Gorgan",
+    "persianName": "گرگان",
+    "countryCode": "IR",
+    "latitude": 36.8427,
+    "longitude": 54.4439,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-sari",
+    "name": "Sari",
+    "persianName": "ساری",
+    "countryCode": "IR",
+    "latitude": 36.5633,
+    "longitude": 53.0601,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ir-bushehr",
+    "name": "Bushehr",
+    "persianName": "بوشهر",
+    "countryCode": "IR",
+    "latitude": 28.9234,
+    "longitude": 50.8203,
+    "timeZoneIdentifier": "Asia/Tehran",
+    "elevationMeters": 0
+  },
+  {
+    "id": "sa-makkah",
+    "name": "Makkah",
+    "persianName": "مکه",
+    "countryCode": "SA",
+    "latitude": 21.4225,
+    "longitude": 39.8262,
+    "timeZoneIdentifier": "Asia/Riyadh",
+    "elevationMeters": 0
+  },
+  {
+    "id": "sa-madinah",
+    "name": "Madinah",
+    "persianName": "مدینه",
+    "countryCode": "SA",
+    "latitude": 24.4672,
+    "longitude": 39.6112,
+    "timeZoneIdentifier": "Asia/Riyadh",
+    "elevationMeters": 0
+  },
+  {
+    "id": "iq-najaf",
+    "name": "Najaf",
+    "persianName": "نجف",
+    "countryCode": "IQ",
+    "latitude": 31.9985,
+    "longitude": 44.3150,
+    "timeZoneIdentifier": "Asia/Baghdad",
+    "elevationMeters": 0
+  },
+  {
+    "id": "iq-karbala",
+    "name": "Karbala",
+    "persianName": "کربلا",
+    "countryCode": "IQ",
+    "latitude": 32.6160,
+    "longitude": 44.0249,
+    "timeZoneIdentifier": "Asia/Baghdad",
+    "elevationMeters": 0
+  },
+  {
+    "id": "tr-istanbul",
+    "name": "Istanbul",
+    "persianName": "استانبول",
+    "countryCode": "TR",
+    "latitude": 41.0082,
+    "longitude": 28.9784,
+    "timeZoneIdentifier": "Europe/Istanbul",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ae-dubai",
+    "name": "Dubai",
+    "persianName": "دبی",
+    "countryCode": "AE",
+    "latitude": 25.2048,
+    "longitude": 55.2708,
+    "timeZoneIdentifier": "Asia/Dubai",
+    "elevationMeters": 0
+  },
+  {
+    "id": "gb-london",
+    "name": "London",
+    "persianName": "لندن",
+    "countryCode": "GB",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "timeZoneIdentifier": "Europe/London",
+    "elevationMeters": 0
+  },
+  {
+    "id": "de-berlin",
+    "name": "Berlin",
+    "persianName": "برلین",
+    "countryCode": "DE",
+    "latitude": 52.5200,
+    "longitude": 13.4050,
+    "timeZoneIdentifier": "Europe/Berlin",
+    "elevationMeters": 0
+  },
+  {
+    "id": "fr-paris",
+    "name": "Paris",
+    "persianName": "پاریس",
+    "countryCode": "FR",
+    "latitude": 48.8566,
+    "longitude": 2.3522,
+    "timeZoneIdentifier": "Europe/Paris",
+    "elevationMeters": 0
+  },
+  {
+    "id": "ca-toronto",
+    "name": "Toronto",
+    "persianName": "تورنتو",
+    "countryCode": "CA",
+    "latitude": 43.6532,
+    "longitude": -79.3832,
+    "timeZoneIdentifier": "America/Toronto",
+    "elevationMeters": 0
+  },
+  {
+    "id": "us-new-york",
+    "name": "New York",
+    "persianName": "نیویورک",
+    "countryCode": "US",
+    "latitude": 40.7128,
+    "longitude": -74.0060,
+    "timeZoneIdentifier": "America/New_York",
+    "elevationMeters": 0
+  },
+  {
+    "id": "us-los-angeles",
+    "name": "Los Angeles",
+    "persianName": "لس‌آنجلس",
+    "countryCode": "US",
+    "latitude": 34.0522,
+    "longitude": -118.2437,
+    "timeZoneIdentifier": "America/Los_Angeles",
+    "elevationMeters": 0
+  },
+  {
+    "id": "au-sydney",
+    "name": "Sydney",
+    "persianName": "سیدنی",
+    "countryCode": "AU",
+    "latitude": -33.8688,
+    "longitude": 151.2093,
+    "timeZoneIdentifier": "Australia/Sydney",
+    "elevationMeters": 0
+  },
+  {
+    "id": "my-kuala-lumpur",
+    "name": "Kuala Lumpur",
+    "persianName": "کوالالامپور",
+    "countryCode": "MY",
+    "latitude": 3.1390,
+    "longitude": 101.6869,
+    "timeZoneIdentifier": "Asia/Kuala_Lumpur",
+    "elevationMeters": 0
+  }
+]

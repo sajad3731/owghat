@@ -1,0 +1,242 @@
+[
+  {
+    "id": "jalali-nowruz-1",
+    "titleEn": "Nowruz (Persian New Year)",
+    "titleFa": "عید نوروز",
+    "calendarKey": { "calendar": "jalali", "month": 1, "day": 1 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-nowruz-2",
+    "titleEn": "Nowruz Holiday (Day 2)",
+    "titleFa": "تعطیلات نوروز (۲ فروردین)",
+    "calendarKey": { "calendar": "jalali", "month": 1, "day": 2 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-nowruz-3",
+    "titleEn": "Nowruz Holiday (Day 3)",
+    "titleFa": "تعطیلات نوروز (۳ فروردین)",
+    "calendarKey": { "calendar": "jalali", "month": 1, "day": 3 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-nowruz-4",
+    "titleEn": "Nowruz Holiday (Day 4)",
+    "titleFa": "تعطیلات نوروز (۴ فروردین)",
+    "calendarKey": { "calendar": "jalali", "month": 1, "day": 4 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-islamic-republic-day",
+    "titleEn": "Islamic Republic Day",
+    "titleFa": "روز جمهوری اسلامی",
+    "calendarKey": { "calendar": "jalali", "month": 1, "day": 12 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-nature-day",
+    "titleEn": "Nature Day (Sizdah Bedar)",
+    "titleFa": "روز طبیعت (سیزده‌بدر)",
+    "calendarKey": { "calendar": "jalali", "month": 1, "day": 13 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-15-khordad",
+    "titleEn": "15 Khordad",
+    "titleFa": "قیام ۱۵ خرداد",
+    "calendarKey": { "calendar": "jalali", "month": 3, "day": 15 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-yalda",
+    "titleEn": "Yalda Night",
+    "titleFa": "شب یلدا",
+    "calendarKey": { "calendar": "jalali", "month": 9, "day": 30 },
+    "isOfficialHoliday": false,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-22-bahman",
+    "titleEn": "22 Bahman",
+    "titleFa": "سالروز پیروزی انقلاب (۲۲ بهمن)",
+    "calendarKey": { "calendar": "jalali", "month": 11, "day": 22 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "jalali-oil-nationalization",
+    "titleEn": "Oil Nationalization Day",
+    "titleFa": "روز ملی شدن صنعت نفت",
+    "calendarKey": { "calendar": "jalali", "month": 12, "day": 29 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-tasua",
+    "titleEn": "Tasua of Imam Husayn",
+    "titleFa": "تاسوعای حسینی",
+    "calendarKey": { "calendar": "hijri", "month": 1, "day": 9 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-ashura",
+    "titleEn": "Ashura",
+    "titleFa": "عاشورای حسینی",
+    "calendarKey": { "calendar": "hijri", "month": 1, "day": 10 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-arbaeen",
+    "titleEn": "Arbaeen",
+    "titleFa": "اربعین حسینی",
+    "calendarKey": { "calendar": "hijri", "month": 2, "day": 20 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-28-safar",
+    "titleEn": "Demise of Prophet Muhammad & Imam Hasan",
+    "titleFa": "رحلت پیامبر اکرم (ص) و شهادت امام حسن (ع)",
+    "calendarKey": { "calendar": "hijri", "month": 2, "day": 28 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-mawlid",
+    "titleEn": "Birth of Prophet Muhammad (17 Rabi al-Awwal)",
+    "titleFa": "میلاد پیامبر اکرم (ص) و امام صادق (ع)",
+    "calendarKey": { "calendar": "hijri", "month": 3, "day": 17 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-13-rajab",
+    "titleEn": "Birth of Imam Ali",
+    "titleFa": "ولادت امام علی (ع)",
+    "calendarKey": { "calendar": "hijri", "month": 7, "day": 13 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-mabath",
+    "titleEn": "Al-Mab'ath",
+    "titleFa": "عید مبعث",
+    "calendarKey": { "calendar": "hijri", "month": 7, "day": 27 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-mid-shaban",
+    "titleEn": "15 Sha'ban",
+    "titleFa": "نیمه شعبان",
+    "calendarKey": { "calendar": "hijri", "month": 8, "day": 15 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-ramadan-1",
+    "titleEn": "First of Ramadan",
+    "titleFa": "آغاز ماه رمضان",
+    "calendarKey": { "calendar": "hijri", "month": 9, "day": 1 },
+    "isOfficialHoliday": false,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-qadr-19",
+    "titleEn": "Laylat al-Qadr (19 Ramadan)",
+    "titleFa": "شب قدر (۱۹ رمضان)",
+    "calendarKey": { "calendar": "hijri", "month": 9, "day": 19 },
+    "isOfficialHoliday": false,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-21-ramadan",
+    "titleEn": "Martyrdom of Imam Ali",
+    "titleFa": "شهادت امام علی (ع)",
+    "calendarKey": { "calendar": "hijri", "month": 9, "day": 21 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-eid-fitr",
+    "titleEn": "Eid al-Fitr",
+    "titleFa": "عید سعید فطر",
+    "calendarKey": { "calendar": "hijri", "month": 10, "day": 1 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-eid-adha",
+    "titleEn": "Eid al-Adha",
+    "titleFa": "عید سعید قربان",
+    "calendarKey": { "calendar": "hijri", "month": 12, "day": 10 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  },
+  {
+    "id": "hijri-eid-ghadir",
+    "titleEn": "Eid al-Ghadir",
+    "titleFa": "عید سعید غدیر خم",
+    "calendarKey": { "calendar": "hijri", "month": 12, "day": 18 },
+    "isOfficialHoliday": true,
+    "isBundled": true,
+    "isHidden": false,
+    "hasReminder": false
+  }
+]
