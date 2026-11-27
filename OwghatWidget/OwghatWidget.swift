@@ -157,8 +157,20 @@ struct OwghatWidgetEntryView: View {
                 largeView
             }
         }
+        // Hierarchical styles only: when the desktop is not in front, macOS removes the widget
+        // background and draws the content on glass. Fixed colors (Color.primary, a translucent
+        // fill background) are not adapted there and the content disappears; .primary,
+        // .secondary and .tint are.
+        .foregroundStyle(.primary)
         .environment(\.layoutDirection, entry.language.isRTL ? .rightToLeft : .leftToRight)
-        .containerBackground(.fill.tertiary, for: .widget)
+        .containerBackground(for: .widget) {
+            Color(nsColor: .windowBackgroundColor)
+        }
+    }
+
+    /// Style for a prayer row: the next prayer uses the tint, the rest the primary level.
+    private func rowStyle(isNext: Bool) -> AnyShapeStyle {
+        isNext ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary)
     }
 
     private var smallView: some View {
@@ -217,7 +229,8 @@ struct OwghatWidgetEntryView: View {
                         )
                         .font(.caption.monospacedDigit().weight(isNext ? .bold : .regular))
                     }
-                    .foregroundStyle(isNext ? Color.accentColor : Color.primary)
+                    .foregroundStyle(rowStyle(isNext: isNext))
+                    .widgetAccentable(isNext)
                 }
             }
         }
@@ -255,7 +268,8 @@ struct OwghatWidgetEntryView: View {
                     .monospacedDigit()
                 }
                 .font(.subheadline.weight(isNext ? .semibold : .regular))
-                .foregroundStyle(isNext ? Color.accentColor : Color.primary)
+                .foregroundStyle(rowStyle(isNext: isNext))
+                .widgetAccentable(isNext)
             }
 
             if !entry.occasions.isEmpty {
