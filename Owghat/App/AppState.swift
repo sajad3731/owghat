@@ -36,6 +36,7 @@ final class AppState {
     var launchAtLoginError: String?
     var notificationAuthorizationStatus: UNAuthorizationStatus = .notDetermined
     var openMainWindowCounter: Int = 0
+    var selectedDeepLinkPrayer: Prayer?
 
     private let settingsStore: SettingsStore
     private let provider: any PrayerTimesProvider
@@ -51,6 +52,7 @@ final class AppState {
     private var retryRefreshTask: Task<Void, Never>?
     private var refreshBackoff = RefreshBackoff()
     private var refreshCoalescer = RefreshCoalescer()
+    private var lastWidgetFingerprint: WidgetFingerprint?
 
     init(
         settingsStore: SettingsStore = SettingsStore(),
@@ -111,6 +113,20 @@ final class AppState {
 
     var accentColor: Color {
         Color(owghatHex: settings.accentColorHex)
+    }
+
+    var isUsingSharedWidgetContainer: Bool {
+        settingsStore.isUsingSharedContainer
+    }
+
+    func handleWidgetURL(_ url: URL) {
+        guard let deepLink = WidgetDeepLink(url: url) else { return }
+        switch deepLink {
+        case .panel:
+            selectedDeepLinkPrayer = nil
+        case .prayer(let prayer):
+            selectedDeepLinkPrayer = prayer
+        }
     }
 
     func dismissStatusMessage() {
@@ -238,8 +254,13 @@ final class AppState {
                 tomorrowSchedule: tomorrow,
                 upcomingOccasions: Array(upcomingOccasions.prefix(6).map(\.occasion))
             )
-            try? settingsStore.saveWidgetSnapshot(snapshot)
-            WidgetCenter.shared.reloadAllTimelines()
+            if (try? settingsStore.saveWidgetSnapshot(snapshot)) != nil {
+                let nextFingerprint = WidgetFingerprint(snapshot: snapshot, settings: settings)
+                if WidgetReloadPolicy.shouldReload(previous: lastWidgetFingerprint, next: nextFingerprint) {
+                    lastWidgetFingerprint = nextFingerprint
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
+            }
 
             scheduler.arm(
                 schedules: [yesterday, today, tomorrow, dayAfter],
