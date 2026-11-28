@@ -55,8 +55,10 @@ open Owghat.xcodeproj
 ```
 
 Before signing or running with App Groups on your own Apple Developer account:
-1. Replace the placeholder `com.example` bundle ID prefix in `project.yml`, `Packages/OwghatCore/Sources/OwghatCore/AppConfig.swift`, `Owghat/Resources/Owghat.entitlements`, and `OwghatWidget/Resources/OwghatWidget.entitlements`.
+1. Replace the placeholder `com.example` bundle ID prefix in `project.yml`, `Packages/OwghatCore/Sources/OwghatCore/AppConfig.swift`, `Owghat/Resources/Owghat.entitlements`, and `OwghatWidget/Resources/OwghatWidget.entitlements` (or update `OWGHAT_APP_GROUP` in `project.yml`).
 2. Set `DEVELOPMENT_TEAM` in `project.yml` and regenerate with `xcodegen generate`.
+
+> **Signed Build Requirement for Widgets:** On macOS, a shared App Group between the app and its WidgetKit extension must be prefixed with your Apple Developer Team ID (`$(TeamIdentifierPrefix)…`, configured once via `OWGHAT_APP_GROUP` in `project.yml`). Unsigned CI or ad-hoc builds compile and run the app, but cannot access the shared App Group container, so widgets fall back to default offline calculations instead of live app settings or snapshot updates.
 
 ## Adding Adhan Audio
 
