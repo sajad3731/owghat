@@ -343,6 +343,60 @@
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "%@ دقیقه تا %@" } }
       }
     },
+    "prayer.dhuhr" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dhuhr" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اذان ظهر" } }
+      }
+    },
+    "prayer.fajr" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fajr" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اذان صبح" } }
+      }
+    },
+    "prayer.imsak" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Imsak" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "امساک" } }
+      }
+    },
+    "prayer.isha" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Isha" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "عشا" } }
+      }
+    },
+    "prayer.maghrib" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Maghrib" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اذان مغرب" } }
+      }
+    },
+    "prayer.midnight" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Midnight" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "نیمه‌شب شرعی" } }
+      }
+    },
+    "prayer.sunrise" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sunrise" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "طلوع آفتاب" } }
+      }
+    },
+    "prayer.sunset" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sunset" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "غروب آفتاب" } }
+      }
+    },
+    "settings.general.shared_container_warning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Widgets require a signed build with a Team ID and App Group; live updates are unavailable in unsigned builds." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "ویجت‌ها برای دریافت داده زنده به بیلد امضاشده با Team ID و App Group نیاز دارند؛ در بیلد بدون امضا اطلاعات زنده همگام‌سازی نمی‌شود." } }
+      }
+    },
     "settings.tab.adhan" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Adhan & Alerts" } },
@@ -377,6 +431,54 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "View upcoming prayer times, dates, and occasions." } },
         "fa" : { "stringUnit" : { "state" : "translated", "value" : "نمایش اوقات شرعی، تاریخ‌های روز و مناسبت‌ها." } }
+      }
+    },
+    "widget.intent.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose which prayer times are visible in this widget." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "انتخاب کنید کدام اوقات شرعی در این ویجت نمایش داده شوند." } }
+      }
+    },
+    "widget.intent.follow_app.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Use the default prayers configured in Owghat." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "نمایش اوقات پیش‌فرض تنظیم‌شده در برنامه اوقات." } }
+      }
+    },
+    "widget.intent.follow_app.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Follow App Settings" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "پیروی از تنظیمات برنامه" } }
+      }
+    },
+    "widget.intent.prayer_type" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prayer" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "وقت شرعی" } }
+      }
+    },
+    "widget.intent.prayers.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom prayers shown when not following app settings." } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات دلخواه برای زمانی که پیروی از تنظیمات برنامه خاموش است." } }
+      }
+    },
+    "widget.intent.prayers.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prayers" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "اوقات" } }
+      }
+    },
+    "widget.intent.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Configure Prayers" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "تنظیم اوقات ویجت" } }
+      }
+    },
+    "widget.stale_hint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Owghat to refresh" } },
+        "fa" : { "stringUnit" : { "state" : "translated", "value" : "برای به‌روزرسانی، اوقات را باز کنید" } }
       }
     },
     "widget.title" : {

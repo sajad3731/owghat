@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		051F83E689C21EC3D5DE4543 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107CA36A90BC08E69F167D6A /* AppearanceSettingsView.swift */; };
-		06299388C183D10C62C17D9B /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A276D423FCD519EDEA3A5 /* Color+Hex.swift */; };
 		08819059580B2DD7D4BB6911 /* AdhanAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B739E6440A7267F53D43D42 /* AdhanAudioPlayer.swift */; };
 		27A1C37A1ACD4F6093949CF9 /* OwghatWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 93A024EF798110927F032C17 /* OwghatWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3F180A649581D3F892D19030 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C9BCC43596DE68F6B93748 /* SettingsView.swift */; };
+		4B1C3956655A735E02B95E38 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 61B6D9AFDB568BADD3DB738B /* Localizable.xcstrings */; };
 		531EFA27337B8C63BCF860A6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 61B6D9AFDB568BADD3DB738B /* Localizable.xcstrings */; };
 		5E80943D478AEECC9721F19B /* OwghatWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908DE7691B5CF85F596527DC /* OwghatWidgetBundle.swift */; };
 		71912FAD1FFDA3DF18B5FE0E /* PrayerWidgetConfigurationIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF9EB57E999642B95498DA /* PrayerWidgetConfigurationIntent.swift */; };
@@ -25,6 +25,7 @@
 		9E6F6C67BDCE15537BEC6129 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F689053F609B5722C56744 /* LocationManager.swift */; };
 		9F0837F9A742BD99681DD5CF /* OwghatWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9231DFBB6D98C020F53EA /* OwghatWidget.swift */; };
 		AC25599DE6BA8361F94C7C24 /* OwghatSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DC5B73A7DB76F8E8C3953 /* OwghatSmokeTests.swift */; };
+		AF63F2B517F95DF787916557 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F18823ABABE07640170D07 /* Color+Hex.swift */; };
 		AFE59FABF4B544F2725DA05F /* WindowFocusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E630AC350A6A6F0C87B25959 /* WindowFocusHelper.swift */; };
 		B2C763CFDE242B52EF29738B /* AdhanScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99CC98AAD6FB1D4113BEAA1 /* AdhanScheduler.swift */; };
 		BBBD311D60C746F105B31476 /* MenuBarPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45214E79DB36B4173C3728F8 /* MenuBarPanelView.swift */; };
@@ -32,8 +33,10 @@
 		D841D41E0BB7A68A3C2C7D53 /* OwghatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */; };
 		D96EF31D8B6123747EAEEA57 /* OwghatCore in Frameworks */ = {isa = PBXBuildFile; productRef = 818F63A8E3C114CD54B8B92B /* OwghatCore */; };
 		DB34B7BB5F7423F806DD9994 /* EventsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F9E022272227611A10CA8 /* EventsSettingsView.swift */; };
+		DF40A0956CE140FC8C923BB5 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F18823ABABE07640170D07 /* Color+Hex.swift */; };
 		E7889E23591C8296FDA29C61 /* AdhanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215D8222ED9D36CD8FC408C7 /* AdhanSettingsView.swift */; };
 		EF5891E92CA9F0FB1E8489D2 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFBDEFFF9A9057779B8F452 /* LocalizedStrings.swift */; };
+		F939E04DF229D86E12D532FB /* OwghatWidgetPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F0DBAF1574756AEE5DEF /* OwghatWidgetPreviews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,7 @@
 		107CA36A90BC08E69F167D6A /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		215D8222ED9D36CD8FC408C7 /* AdhanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhanSettingsView.swift; sourceTree = "<group>"; };
 		26F689053F609B5722C56744 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		30F18823ABABE07640170D07 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatApp.swift; sourceTree = "<group>"; };
 		45214E79DB36B4173C3728F8 /* MenuBarPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPanelView.swift; sourceTree = "<group>"; };
 		61B6D9AFDB568BADD3DB738B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -78,7 +82,6 @@
 		793DC5B73A7DB76F8E8C3953 /* OwghatSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatSmokeTests.swift; sourceTree = "<group>"; };
 		8D97359A6447400DC2A19541 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		908DE7691B5CF85F596527DC /* OwghatWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatWidgetBundle.swift; sourceTree = "<group>"; };
-		913A276D423FCD519EDEA3A5 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		93A024EF798110927F032C17 /* OwghatWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwghatWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		95CAB27EB07482C3C8080179 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B739E6440A7267F53D43D42 /* AdhanAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhanAudioPlayer.swift; sourceTree = "<group>"; };
@@ -89,6 +92,7 @@
 		CB6B3B0E5CE41FD05339C983 /* OwghatCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OwghatCore; path = Packages/OwghatCore; sourceTree = SOURCE_ROOT; };
 		D1225430481B3658E37148A7 /* Owghat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Owghat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3020E9D70566EAA1CE0D186 /* gentle-chime.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "gentle-chime.wav"; sourceTree = "<group>"; };
+		D305F0DBAF1574756AEE5DEF /* OwghatWidgetPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwghatWidgetPreviews.swift; sourceTree = "<group>"; };
 		E195A2108CBB4C5BF8AC690D /* MenuBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabelView.swift; sourceTree = "<group>"; };
 		E630AC350A6A6F0C87B25959 /* WindowFocusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFocusHelper.swift; sourceTree = "<group>"; };
 		ED7B2E275A32EA6F06476B1F /* OwghatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwghatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				C9568F7CF4D9EF77B4B0E263 /* AppState.swift */,
-				913A276D423FCD519EDEA3A5 /* Color+Hex.swift */,
 				EDFBDEFFF9A9057779B8F452 /* LocalizedStrings.swift */,
 				3C51B1A9B86128BA4B54AB62 /* OwghatApp.swift */,
 				E630AC350A6A6F0C87B25959 /* WindowFocusHelper.swift */,
@@ -197,6 +200,7 @@
 			children = (
 				AFD9231DFBB6D98C020F53EA /* OwghatWidget.swift */,
 				908DE7691B5CF85F596527DC /* OwghatWidgetBundle.swift */,
+				D305F0DBAF1574756AEE5DEF /* OwghatWidgetPreviews.swift */,
 				9FEF9EB57E999642B95498DA /* PrayerWidgetConfigurationIntent.swift */,
 			);
 			path = OwghatWidget;
@@ -226,6 +230,14 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		B4E0168A26981F0AAF86DBA5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				30F18823ABABE07640170D07 /* Color+Hex.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		BB8B4C733E9890B07EDE25DC /* Adhan */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +254,7 @@
 				FA02508E352D7AE8ACA688DD /* OwghatTests */,
 				661E9129343B3642DA431FA3 /* OwghatWidget */,
 				78ABAF2C05DE1DDA7240CBFC /* Packages */,
+				B4E0168A26981F0AAF86DBA5 /* Shared */,
 				100D7E972E5B7A45738A551E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -304,6 +317,7 @@
 			buildConfigurationList = 667E7FC5F7E883D10210C838 /* Build configuration list for PBXNativeTarget "OwghatWidget" */;
 			buildPhases = (
 				81ACE3A1817D373FFBA6E801 /* Sources */,
+				A6B3EBA2F187356E249867F0 /* Resources */,
 				9924A6183030D7F283399FE6 /* Frameworks */,
 			);
 			buildRules = (
@@ -374,6 +388,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6B3EBA2F187356E249867F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B1C3956655A735E02B95E38 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -381,8 +403,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF40A0956CE140FC8C923BB5 /* Color+Hex.swift in Sources */,
 				9F0837F9A742BD99681DD5CF /* OwghatWidget.swift in Sources */,
 				5E80943D478AEECC9721F19B /* OwghatWidgetBundle.swift in Sources */,
+				F939E04DF229D86E12D532FB /* OwghatWidgetPreviews.swift in Sources */,
 				71912FAD1FFDA3DF18B5FE0E /* PrayerWidgetConfigurationIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +428,7 @@
 				E7889E23591C8296FDA29C61 /* AdhanSettingsView.swift in Sources */,
 				9AEC3066CF09409EB44CA76C /* AppState.swift in Sources */,
 				051F83E689C21EC3D5DE4543 /* AppearanceSettingsView.swift in Sources */,
-				06299388C183D10C62C17D9B /* Color+Hex.swift in Sources */,
+				AF63F2B517F95DF787916557 /* Color+Hex.swift in Sources */,
 				DB34B7BB5F7423F806DD9994 /* EventsSettingsView.swift in Sources */,
 				920D3DF7505DE778CE36A000 /* GeneralSettingsView.swift in Sources */,
 				EF5891E92CA9F0FB1E8489D2 /* LocalizedStrings.swift in Sources */,
@@ -598,6 +622,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OWGHAT_APP_GROUP = "$(TeamIdentifierPrefix)com.example.owghat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -664,6 +689,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OWGHAT_APP_GROUP = "$(TeamIdentifierPrefix)com.example.owghat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
