@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(OSLog)
+import OSLog
+#endif
 
 /// Portable JSON envelope used for importing and exporting all settings and occasions.
 public struct OwghatExportEnvelope: Codable, Sendable, Equatable {
@@ -17,6 +20,15 @@ public struct OwghatExportEnvelope: Codable, Sendable, Equatable {
 public final class SettingsStore: @unchecked Sendable {
     private static let settingsKey = "owghat.settings.v1"
     private static let snapshotKey = "owghat.widgetSnapshot.v1"
+    private static let loggedGroupTracker = LoggedGroupTracker()
+    #if canImport(OSLog)
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier ?? AppConfig.appBundleIdentifier,
+        category: "SettingsStore"
+    )
+    #endif
+
+    public let isUsingSharedContainer: Bool
 
     private let userDefaults: UserDefaults?
     private let settingsFileURL: URL?
@@ -34,12 +46,16 @@ public final class SettingsStore: @unchecked Sendable {
 
         let baseDirectory: URL?
         if let customDirectoryURL {
+            self.isUsingSharedContainer = false
             baseDirectory = customDirectoryURL
         } else if let groupURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: appGroupIdentifier
         ) {
+            self.isUsingSharedContainer = true
             baseDirectory = groupURL.appendingPathComponent(AppConfig.appSupportDirectoryName, isDirectory: true)
         } else {
+            self.isUsingSharedContainer = false
+            Self.logUnavailableContainerOnce(appGroupIdentifier: appGroupIdentifier)
             baseDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?
                 .appendingPathComponent(AppConfig.appSupportDirectoryName, isDirectory: true)
         }
@@ -133,5 +149,26 @@ public final class SettingsStore: @unchecked Sendable {
             return envelope.settings
         }
         return try decoder.decode(AppSettings.self, from: data)
+    }
+
+    private static func logUnavailableContainerOnce(appGroupIdentifier: String) {
+        guard loggedGroupTracker.markLoggedIfNeeded(appGroupIdentifier) else { return }
+
+        #if canImport(OSLog)
+        logger.warning(
+            "Shared App Group container '\(appGroupIdentifier, privacy: .public)' is unavailable; falling back to local Application Support."
+        )
+        #endif
+    }
+
+    private final class LoggedGroupTracker: @unchecked Sendable {
+        private let lock = NSLock()
+        private var identifiers: Set<String> = []
+
+        func markLoggedIfNeeded(_ identifier: String) -> Bool {
+            lock.lock()
+            defer { lock.unlock() }
+            return identifiers.insert(identifier).inserted
+        }
     }
 }

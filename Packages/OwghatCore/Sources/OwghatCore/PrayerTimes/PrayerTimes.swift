@@ -47,14 +47,14 @@ public struct PrayerTimeEntry: Codable, Sendable, Equatable, Hashable, Identifia
 }
 
 /// Origin of a computed daily prayer schedule.
-public enum PrayerTimeSourceKind: String, Codable, Sendable, CaseIterable {
+public enum PrayerTimeSourceKind: String, Codable, Sendable, CaseIterable, Hashable {
     case offline
     case online
     case hybrid
 }
 
 /// Minute difference (`online - offline`) when comparing offline calculation with online times.
-public struct PrayerTimeComparison: Codable, Sendable, Equatable {
+public struct PrayerTimeComparison: Codable, Sendable, Equatable, Hashable {
     public let minuteDifferences: [Prayer: Int]
     public let fetchedAt: Date
 
@@ -88,7 +88,7 @@ public enum DateKeyFormatter {
 }
 
 /// Complete prayer schedule for a single local calendar day.
-public struct DailyPrayerTimes: Codable, Sendable, Equatable {
+public struct DailyPrayerTimes: Codable, Sendable, Equatable, Hashable {
     public let dateKey: String
     public let timeZoneIdentifier: String
     public let location: GeoLocation
