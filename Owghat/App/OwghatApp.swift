@@ -34,6 +34,7 @@ struct OwghatApp: App {
                 .tint(appState.accentColor)
         }
         .defaultSize(width: 400, height: 560)
+        .handlesExternalEvents(matching: Set(["*"]))
     }
 
     private var appTitle: String {
@@ -61,10 +62,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 /// Optional main overview window presenting the daily schedule and quick settings access.
 struct MainOverviewView: View {
     let appState: AppState
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         MenuBarPanelView(appState: appState, showsOpenWindowButton: false)
             .frame(minWidth: 360, minHeight: 500)
             .padding()
+            .onOpenURL { url in
+                appState.handleWidgetURL(url)
+                WindowFocusHelper.openMainWindow(using: openWindow)
+            }
     }
 }

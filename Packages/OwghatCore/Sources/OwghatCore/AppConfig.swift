@@ -11,7 +11,20 @@ public enum AppConfig {
 
     public static let appBundleIdentifier = "\(bundleIdentifierPrefix).owghat"
     public static let widgetBundleIdentifier = "\(bundleIdentifierPrefix).owghat.widget"
-    public static let appGroupIdentifier = "group.\(bundleIdentifierPrefix).owghat"
+    public static let appGroupInfoPlistKey = "OwghatAppGroupIdentifier"
+    public static let fallbackAppGroupIdentifier = "group.\(bundleIdentifierPrefix).owghat"
+    public static let urlScheme = "owghat"
+
+    public static var appGroupIdentifier: String {
+        if let configured = Bundle.main.object(forInfoDictionaryKey: appGroupInfoPlistKey) as? String {
+            let trimmed = configured.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty, !trimmed.contains("$(") {
+                return trimmed
+            }
+        }
+        return fallbackAppGroupIdentifier
+    }
+
     public static let appSupportDirectoryName = "Owghat"
     public static let aladhanBaseURL = URL(string: "https://api.aladhan.com/v1")!
 }

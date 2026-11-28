@@ -29,6 +29,15 @@ struct GeneralSettingsView: View {
                 set: { enabled in appState.updateSettings { $0.adhan.showDockIcon = enabled } }
             ))
 
+            if !appState.isUsingSharedWidgetContainer {
+                Label(
+                    LocalizedStringKey("settings.general.shared_container_warning"),
+                    systemImage: "exclamationmark.triangle.fill"
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            }
+
             Section("Backup") {
                 HStack {
                     Button("Export JSON…") {

@@ -24,6 +24,21 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>OwghatAppGroupIdentifier</key>
+	<string>$(OWGHAT_APP_GROUP)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>owghat</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSLocationUsageDescription</key>
 	<string>Owghat uses your location to calculate accurate local prayer times.</string>
 	<key>NSPrincipalClass</key>

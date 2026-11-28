@@ -6,8 +6,8 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<!-- TODO: Replace com.example with your bundle ID prefix -->
-		<string>group.com.example.owghat</string>
+		<!-- Uses OWGHAT_APP_GROUP from project.yml (replace com.example with your bundle prefix). -->
+		<string>$(OWGHAT_APP_GROUP)</string>
 	</array>
 </dict>
 </plist>

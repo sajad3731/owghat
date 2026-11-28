@@ -33,10 +33,10 @@ This document tracks the development milestones for Owghat (اوقات), a nativ
 - [x] Finalize `SMAppService.mainApp` launch-at-login and Dock icon toggle (`LSUIElement`)
 
 ## M4 — Widgets
-- [ ] Refine Small, Medium, and Large WidgetKit layouts for Desktop and Notification Center
-- [ ] Verify timeline entries at every prayer boundary and calendar midnight
-- [ ] Complete `AppIntents` `WidgetConfigurationIntent` so users can choose displayed prayers per widget instance
-- [ ] Ensure `WidgetCenter.shared.reloadAllTimelines()` triggers smoothly on settings/location changes
+- [x] Refine Small, Medium, and Large WidgetKit layouts for Desktop and Notification Center
+- [x] Verify timeline entries at every prayer boundary and calendar midnight
+- [x] Complete `AppIntents` `WidgetConfigurationIntent` so users can choose displayed prayers per widget instance
+- [x] Ensure `WidgetCenter.shared.reloadAllTimelines()` triggers smoothly on settings/location changes
 
 ## M5 — Settings and Editing
 - [ ] Build full editing controls for per-prayer minute offsets and per-date manual overrides

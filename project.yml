@@ -20,6 +20,8 @@ settings:
     ENABLE_USER_SCRIPT_SANDBOXING: YES
     # TODO: Set DEVELOPMENT_TEAM to your Apple Developer Team ID before signing builds.
     DEVELOPMENT_TEAM: ""
+    # TODO: Replace com.example to match your bundleIdPrefix after setting DEVELOPMENT_TEAM.
+    OWGHAT_APP_GROUP: $(TeamIdentifierPrefix)com.example.owghat
 
 targets:
   Owghat:
@@ -30,6 +32,7 @@ targets:
         excludes:
           - Resources/Info.plist
           - Resources/Owghat.entitlements
+      - path: Shared
     settings:
       base:
         PRODUCT_NAME: Owghat
@@ -57,6 +60,8 @@ targets:
         excludes:
           - Resources/Info.plist
           - Resources/OwghatWidget.entitlements
+      - path: Shared
+      - path: Owghat/Resources/Localizable.xcstrings
     settings:
       base:
         PRODUCT_NAME: OwghatWidget

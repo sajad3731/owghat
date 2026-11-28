@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `WidgetTimelinePlanner`, `WidgetEntryModel`, `WidgetDisplaySettings`, `WidgetPrayerSelection`, `WidgetDeepLink`, `WidgetFingerprint`, and `WidgetReloadPolicy` in `OwghatCore` with unit tests covering after-Isha tomorrow Fajr rollover, post-midnight Islamic midnight entries, end-of-tomorrow boundary planning with 1-second deduplication, `Europe/Berlin` DST and `Asia/Tehran` timelines, follow-app vs custom/empty configuration selection, 48-hour snapshot staleness hints, and reload policy fingerprinting.
+- Redesigned Small, Medium, and Large WidgetKit views in `OwghatWidget` with live `Text(timerInterval:countsDown:)` countdowns, passed/next/upcoming row hierarchy, localized occasions via `PanelOccasionsDisplay`, `WidgetRenderingMode` handling (light, dark, vibrant desktop, Notification Center), `owghat://` deep-link tap targets, stale-snapshot hint, and `#Preview(as:)` sample timelines in Persian and English.
+- "Follow App Settings" parameter (`default: true`) and localized `Localizable.xcstrings` (`fa`, `en`) coverage across `PrayerWidgetConfigurationIntent`, `PrayerAppEnum`, and all widget strings (shared in both targets via `project.yml`).
+- Centralized `OWGHAT_APP_GROUP` (`$(TeamIdentifierPrefix)com.example.owghat`) build setting in `project.yml`, wired into both entitlements and `Info.plist` (`OwghatAppGroupIdentifier`), `SettingsStore.isUsingSharedContainer` status + one-time container warning log, and a Settings status notice when the shared container is unavailable.
+- Registered the `owghat` URL scheme in `Info.plist` and handled `onOpenURL` + `handlesExternalEvents` in `OwghatApp` to raise the main overview window via `WindowFocusHelper.openMainWindow`.
 - `AdhanEvent`, `AdhanPlanner` (48-hour horizon independent of display visibility), `AdhanFireDecision` (90-second grace window), and `NotificationPlan` (diff-based scheduling capped at 48 requests while preserving snoozes) in `OwghatCore` with unit tests.
 - Validated custom audio import (`0 < duration <= 15 min`), live volume dragging with persistence on release, clip rename/delete with prayer reassignment, and missing-clip fallback in `AdhanAudioPlayer` and `AdhanSettingsView`.
 - `ProcessInfo` App Nap activity assertions (~60s pre-event) and `SMAppService.mainApp` status synchronization with Login Items approval UI.
@@ -23,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions CI workflow on `macos-15`, issue templates, `docs/ROADMAP.md`, `CONTRIBUTING.md`, bilingual `README.md`, and MIT `LICENSE`.
 
 ### Fixed
+- Fixed post-Isha and prayer-type highlight mismatches in widgets by reusing `PanelSchedule` across yesterday, today, and tomorrow schedules with full-timeline state transitions through the end of tomorrow.
+- Eliminated redundant `WidgetCenter.shared.reloadAllTimelines()` calls on boundary refreshes, wakeups, and Adhan volume/mute updates by gating reloads with `WidgetReloadPolicy`.
 - Prevented stale post-sleep Adhan playback beyond a 90-second grace window (posting a quiet missed alert instead), decoupled scheduling from `visiblePrayers`, suppressed double notification sounds while in-app audio plays, honored mute/`.none` in system notifications, and preserved pending snoozes across 48-hour notification diffs.
 - Localized all notification actions/bodies, audio import errors, and Adhan settings controls into `Localizable.xcstrings` (`fa`, `en`).
 - Next-prayer highlight now compares prayer identity and timestamp instead of prayer kind alone, preventing today's Fajr from highlighting after Isha/midnight.
